@@ -1,17 +1,14 @@
 
-Bash append Research to Reports
-
 **CODE**:
 ```
 ### use
 # execute command, then run: append "!!"
 function append {
   if [[ -z $NOTE ]]; then
-    echo "🦖 !saved; set NOTE & repeat"
+    echo "👻 not saved; set NOTE & repeat"
   else
     input="$*"
-    # input='ct cat_indices.txt | grep .kibana_task_manager_1'
-    FILEa=$HOME_NOTE/$NOTE'.md'
+    FILEa='/Users/stef/downloads'/$NOTE'.md'
 
     echo >> $FILEa
     echo "\`\`\`" >> $FILEa
