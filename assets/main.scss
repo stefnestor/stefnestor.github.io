@@ -60,3 +60,22 @@
 
 .codecell table { width: auto; }
 
+
+
+/*  CUSTOM  */
+
+.rss-subscribe, .post-list-heading {
+        display: none;
+}
+
+.wrapper {
+        border-bottom:  2px dashed #0BB1D9;
+}
+
+.post-link {
+        color: #0BB1D9;
+}
+
+.post-link:hover {
+        text-decoration: none;
+}
