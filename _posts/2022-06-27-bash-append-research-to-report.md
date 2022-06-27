@@ -1,6 +1,9 @@
+---
+layout: post 
+title: "[LAB] Append Console Research to Report via Bash"
+---
 
-**CODE**
-
+### code
 ```
 ### use
 # execute command, then run: append "!!"
@@ -21,8 +24,7 @@ function append {
 }
 ```
 
-**RUN**
-
+### run
 ```
 Last login: Mon Jun 27 11:59:23 on ttys000
 $ NOTE="TMP"
@@ -32,10 +34,8 @@ $ append "!!"
 append "echo "stef""
 ```
 
-**RESULT** 
-
+### result
 `TMP.md` (auto-created and) added
-
 `````````
 ```
 $ # 20220627-120212
@@ -43,6 +43,3 @@ $ echo stef
 stef
 ```
 `````````
-
-**USE CASE**
-
