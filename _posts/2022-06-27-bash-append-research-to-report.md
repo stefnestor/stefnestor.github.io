@@ -143,19 +143,19 @@ continue to use the cheatsheet to investigate.
 
 I can leave the file as is for internal tracking. 
 
-![](2022-06-27-bash-append-research-to-report-A.png)
+![](images/2022-06-27-bash-append-research-to-report-A.png)
 
 
 If I'm sending it to a customer, I'll add in quotes (previously written 
 by me) to flush out Doc contexts.
 
-![](2022-06-27-bash-append-research-to-report-B.png)
+![](images/2022-06-27-bash-append-research-to-report-B.png)
 
 ### result
 
 This exports as a ready-to-go PDF.
 
-![](2022-06-27-bash-append-research-to-report-C.png)
+![](images/2022-06-27-bash-append-research-to-report-C.png)
 
 
 
