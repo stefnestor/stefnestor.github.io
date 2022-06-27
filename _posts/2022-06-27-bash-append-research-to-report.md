@@ -101,7 +101,7 @@ $ cat cluster_health.json | jq '.status'
 ```
 
 My [Allocation Cheatsheet](https://github.com/stefnestor/elastic/blob/main/Elasticsearch/Index/Shard/Allocation/allocation%20cheatsheet.pdf) 
-suggets we need to check if we're currently assigning/recovering shards.
+suggests we need to check if we're currently assigning/recovering shards.
 
 ```
 $ cat cluster_health.json | jq '{status,number_of_nodes,active_shards,unassigned_shards,active_shards_percent_as_number,relocating_shards,initializing_shards,delayed_unassigned_shards}'
@@ -143,17 +143,17 @@ continue to use the cheatsheet to investigate.
 
 I can leave the file as is for internal tracking. 
 
-![raw report](images/2022-06-27-bash-append-research-to-report-A.png)
+![raw report](/images/2022-06-27-bash-append-research-to-report-A.png)
 
 
 If I'm sending it to a customer, I'll add in quotes (previously written 
 by me) to flush out Doc contexts.
 
-![report with annotations](images/2022-06-27-bash-append-research-to-report-B.png)
+![report with annotations](/images/2022-06-27-bash-append-research-to-report-B.png)
 
 ### result
 
 This exports as a ready-to-go PDF.
 
-![frontend report](images/2022-06-27-bash-append-research-to-report-C.png)
+![frontend report](/images/2022-06-27-bash-append-research-to-report-C.png)
 
