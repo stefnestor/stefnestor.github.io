@@ -74,7 +74,7 @@
 }
 */
 
-a > .post-link {
+a > .post-link, a {
         color: #0BB1D9;
 }
 
@@ -84,4 +84,12 @@ a > .post-link {
 
 .footer-license {
         font-size: .5rem;       
+}
+
+.site-footer {
+        padding: 10px 0;
+}
+
+.footer-col-wrapper {
+        font-size: 70%;
 }

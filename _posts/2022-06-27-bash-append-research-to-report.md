@@ -1,4 +1,6 @@
-{:toc}
+---
+categories: lab
+---
 
 ### code
 ```
@@ -30,7 +32,6 @@ $ echo "stef"
 stef
 $ append "!!"
 append "echo "stef""
-$
 ```
 
 ### result
