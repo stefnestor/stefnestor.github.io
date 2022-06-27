@@ -40,7 +40,8 @@ function append {
 ```
 
 This is purposely written to respect Bash piping (allows you to use `jq`, 
-`grep`, etc).
+`grep`, etc) while maintaining output formatting when it appends into 
+file.
 
 ### 2. run
 
@@ -221,4 +222,4 @@ Happy so far. Future wants:
 
 - [LNAV](http://lnav.org) (console log viewer) allows you to filter columns and not just rows which'd be very helpful for reports.
 - Obsidian's [Local Rest API](https://github.com/coddingtonbear/obsidian-local-rest-api) let's you API query your notes which'd be helpful to automate diagnostic/log investigation to known issues.
-  - You can use Python + Obsidian's [Excalidraw](https://github.com/zsviczian/obsidian-excalidraw-plugin) to transition visual diagrams into investigation paths.
+- I've figured out how to use Python + Obsidian's [Excalidraw](https://github.com/zsviczian/obsidian-excalidraw-plugin) to transition visual diagrams into investigation paths. I need to figure out how to bring this into play to automate writing the report.
