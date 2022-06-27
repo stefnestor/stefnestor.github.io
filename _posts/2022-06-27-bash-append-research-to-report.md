@@ -1,5 +1,4 @@
 ---
-layout: post 
 title: "[LAB] Append Console Research to Report via Bash"
 ---
 
@@ -39,6 +38,9 @@ function append {
   fi
 }
 ```
+
+This is purposely written to respect Bash piping (allows you to use `jq`, 
+`grep`, etc).
 
 ### 2. run
 
@@ -165,7 +167,8 @@ $ append "!!"
 
 We are not, so following cheatsheet, we'll kick off a 
 [Cluster Reroute](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.html). 
-After 3min, I `ess` poll [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html).
+After 5min, I run `ess` to poll 
+[Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html).
 
 ```bash
 $ ess e406cfd66dc944119bd8da2bb7290d2b _cluster/health | jq '{status,number_of_nodes,active_shards,unassigned_shards,active_shards_percent_as_number,relocating_shards,initializing_shards,delayed_unassigned_shards}'
@@ -207,3 +210,15 @@ This exports as a ready-to-go PDF.
 
 ![frontend report](/images/2022-06-27-bash-append-research-to-report-C.png)
 
+Note: For an actual RCA, I'll write-up an executive abstract at the top 
+and flush out the stream-of-concious investigation below. The second 
+part's not required but helps me teach my clients to reduce their 
+dependency on me.
+
+## C - Review
+
+Happy so far. Future wants:
+
+- [LNAV](http://lnav.org) (console log viewer) allows you to filter columns and not just rows which'd be very helpful for reports.
+- Obsidian's [Local Rest API](https://github.com/coddingtonbear/obsidian-local-rest-api) let's you API query your notes which'd be helpful to automate diagnostic/log investigation to known issues.
+  - You can use Python + Obsidian's [Excalidraw](https://github.com/zsviczian/obsidian-excalidraw-plugin) to transition visual diagrams into investigation paths.
