@@ -3,13 +3,26 @@ layout: post
 title: "[LAB] Append Console Research to Report via Bash"
 ---
 
-## lab
+**GOAL**: Forward console research (command and output) into notes to 
+reduce report write-up time.
 
-### code
+## A - Lab
+
+### 1. code
+
+Note: This is more complex than your normal google results of "add output 
+to file" because we want to also capture the generating command.
+
+Preferably, you'll add the following into your `.bash_profile` or bash 
+dotfiles to be able to access this `append` command from any session.
 
 ```bash
-### use
-# execute command, then run: append "!!"
+### to use
+# 1. execute random command
+# 2. run: append "!!"
+#    - will capture very last within session
+#    - !! must be in quotes to parse bash pipes, etc
+#
 function append {
   if [[ -z $NOTE ]]; then
     echo "👻 not saved; set NOTE & repeat"
@@ -27,19 +40,30 @@ function append {
 }
 ```
 
-### run
+### 2. run
 
-```
+If you added to dotfiles, you can run `append` from any console Bash 
+session/directory. (May require restarting your console.)
+
+```bash
 Last login: Mon Jun 27 11:59:23 on ttys000
+$ pwd
+/Users/stef/Documents
+$
 $ NOTE="TMP"
 $ echo "stef"
 stef
 $ append "!!"
 append "echo "stef""
+$
+$ cd /Users/stef/Downloads
+$ ls | grep TMP
+TMP.md
 ```
 
-### result
-`TMP.md` (auto-created and) added
+### 3. result
+
+The `TMP.md` (file was auto-created-as-needed and) appended
 `````````
 ```
 $ # 20220627-120212
@@ -48,19 +72,37 @@ stef
 ```
 `````````
 
-## use case
+As a Mardown file, this will render
 
-[Obsidian](https://obsidian.md/) lets you wiki embed sub-pages. 
-[Elastic Cloud](https://cloud.elastic.co) lets you maintain your deployment
-via [their API](https://www.elastic.co/guide/en/cloud/current/ec-restful-api.html). 
-You can also capture an Elasticsearch [diagnostic](https://github.com/elastic/support-diagnostics#usage-examples).
+> ```
+> $ # 20220627-120212
+> $ echo stef
+> stef
+> ```
 
-### ess api
+---
+
+## B - Use Case
+
+I use [Obsidian](https://obsidian.md/) for my notes which lets you wiki 
+embed sub-Markdown-pages. I work on Elasticsearch Database Administration.
+
+[Elastic Cloud](https://cloud.elastic.co) lets 
+you maintain your "deployment" via 
+[their API](https://www.elastic.co/guide/en/cloud/current/ec-restful-api.html). 
+You can also capture a point-in-time cluster view via an Elasticsearch 
+[diagnostic](https://github.com/elastic/support-diagnostics#usage-examples).
+
+### 1. ess api
 
 You can setup your Bash dotfiles to quick cURL your ESS/ECE deployment's 
 [ES API Console](https://www.elastic.co/guide/en/cloud/current/ec-api-console.html).
 
 ```bash
+### to use
+# 1. setup console variable: ELASTIC_ECE_KEY
+# 2. run ess $DEPLOYMENT_ID $REQUEST_PATH
+#
 function ess {
   AUTH="Authorization: APIKey ${ELASTIC_ECE_KEY}"
   MGMNT="X-Management-Request: true"
@@ -80,19 +122,22 @@ function ess {
 }
 ```
 
-Your simplified cURL can now be ran in terminal, e.g.
+Your simplified deployment's Elasticsearch cURL can now be ran in 
+console, e.g.
 
-```
+```bash
 $ ess e406cfd66dc944119bd8da2bb7290d2b _cluster/health?filter_path=status
 {"status":"yellow"}
 ```
 
-### investigate
+### 2. investigate
 
-Let's say I've captured a diagnostic showing my cluster's `status:yellow`. 
-JSON filtering done via [JQ](https://stedolan.github.io/jq/manual).
+Let's say I've received an alert that my cluster's `status:yellow`. 
+JSON filtering done via [JQ](https://stedolan.github.io/jq/manual). I'll 
+grab a diagnostic to capture my point-in-time situation. Then confirm:
 
-```
+```bash
+$ NOTE="my_report"
 $ where
 /Users/stef/downloads/diag
 $ append "!!"
@@ -103,7 +148,7 @@ $ cat cluster_health.json | jq '.status'
 My [Allocation Cheatsheet](https://github.com/stefnestor/elastic/blob/main/Elasticsearch/Index/Shard/Allocation/allocation%20cheatsheet.pdf) 
 suggests we need to check if we're currently assigning/recovering shards.
 
-```
+```bash
 $ cat cluster_health.json | jq '{status,number_of_nodes,active_shards,unassigned_shards,active_shards_percent_as_number,relocating_shards,initializing_shards,delayed_unassigned_shards}'
 {
   "status": "yellow",
@@ -118,10 +163,11 @@ $ cat cluster_health.json | jq '{status,number_of_nodes,active_shards,unassigned
 $ append "!!"
 ```
 
-We are not, so we'll kick off a [Cluster Reroute](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.html). 
-After 3min, I poll [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html).
+We are not, so following cheatsheet, we'll kick off a 
+[Cluster Reroute](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.html). 
+After 3min, I `ess` poll [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html).
 
-```
+```bash
 $ ess e406cfd66dc944119bd8da2bb7290d2b _cluster/health | jq '{status,number_of_nodes,active_shards,unassigned_shards,active_shards_percent_as_number,relocating_shards,initializing_shards,delayed_unassigned_shards}'
 {
   "status": "yellow",
@@ -137,21 +183,25 @@ $ append "!!"
 ```
 
 We're unchanged. This suggests a non-transient issue's at play. We 
-continue to use the cheatsheet to investigate.
+continue to use the cheatsheet and 
+[Elasticsearch docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html) 
+to investigate.
 
-### (opt) write up
+Where Elasticsearch's recovery and ILM processes can poll at <10min 
+intervals, I frequently work with clients on transient issues. This is 
+why my research=>report integration automatically tracks the time added.
 
-I can leave the file as is for internal tracking. 
+For internal tracking, I usually leave the file in its raw format:
 
 ![raw report](/images/2022-06-27-bash-append-research-to-report-A.png)
 
+### 3. result
 
-If I'm sending it to a customer, I'll add in quotes (previously written 
-by me) to flush out Doc contexts.
+If a client is requesting an RCA, I'll manually add in quotes 
+(previously written notes summarizing various Elastic concepts) to flush 
+out the why/how we progressed through our investigation:
 
 ![report with annotations](/images/2022-06-27-bash-append-research-to-report-B.png)
-
-### result
 
 This exports as a ready-to-go PDF.
 
