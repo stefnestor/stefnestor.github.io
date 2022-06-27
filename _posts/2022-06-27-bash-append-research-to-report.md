@@ -1,5 +1,6 @@
 
-### code
+**CODE**
+
 ```
 ### use
 # execute command, then run: append "!!"
@@ -20,7 +21,7 @@ function append {
 }
 ```
 
-### run
+**RUN**
 
 ```
 Last login: Mon Jun 27 11:59:23 on ttys000
@@ -31,9 +32,10 @@ $ append "!!"
 append "echo "stef""
 ```
 
-### result
+**RESULT** 
 
 `TMP.md` (auto-created and) added
+
 `````````
 ```
 $ # 20220627-120212
@@ -41,3 +43,6 @@ $ echo stef
 stef
 ```
 `````````
+
+**USE CASE**
+
