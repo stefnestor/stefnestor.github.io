@@ -1,5 +1,6 @@
+{:toc}
 
-**CODE**:
+### code
 ```
 ### use
 # execute command, then run: append "!!"
@@ -20,7 +21,7 @@ function append {
 }
 ```
 
-**RUN**:
+### run
 
 ```
 Last login: Mon Jun 27 11:59:23 on ttys000
@@ -32,7 +33,8 @@ append "echo "stef""
 $
 ```
 
-**RESULT**: 
+### result
+
 `TMP.md` (auto-created and) added
 `````````
 ```
