@@ -1,4 +1,6 @@
 ---
+layout: post
+title: "Append Research to Reports in Bash"
 categories: lab
 ---
 
