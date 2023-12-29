@@ -215,6 +215,7 @@ GET _snapshot/_all/_current?filter_path=total,snapshots.state,snapshots.start_ti
 - [doc](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshot-restore.html#snapshot-restore-warnings): other backup methods (e.g. VM) not supported
 - [doc](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshot-restore.html#snapshot-restore-version-compatibility): can only restore older versions into newer
 - [doc](https://underthehood.meltwater.com/blog/2023/05/11/promoting-replica-shards-to-primary-in-elasticsearch-and-how-it-saves-us-12k-during-rolling-restarts/): primary rotating requires fully syncing new segments
+- [elasticsearch#89261](https://github.com/elastic/elasticsearch/issues/89261) `Data stream(s) [.fleet-actions-results] use and access is reserved for system operations`
 
 ## Security
 
