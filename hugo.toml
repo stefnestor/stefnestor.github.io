@@ -42,7 +42,7 @@ enableRobotsTXT = true
   accentColor = "#FF4D4D"
   ShowBackToTopButton = true
   showPostsOnHomePage = "recent"
-  footer = "© 2023 Stef Nestor"
+  footer = "Stef Nestor"
 
 [markup]
   [markup.tableOfContents]

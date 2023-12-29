@@ -244,7 +244,7 @@ troubleshooting.</p>
 <li>7.5.0≤v≤7.13.0 <code>Expected _scroll_id in the following Elasticsearch response</code> CSV export not supported against Frozen. Resolved <a href="https://github.com/elastic/kibana/pull/88303">kibana#88303</a>.</li>
 <li><code>token expired</code> / <code>Cannot read properties of undefined (reading 'convert')</code> short-term increase xpack.security.authc.token.timeout, long-term <a href="https://github.com/elastic/kibana/issues/71866">kibana#71866</a></li>
 <li><code>Array buffer allocation failed</code> Upgrade ≥v7.15.0 for chunked export via <a href="https://github.com/elastic/kibana/pull/108485">kibana#108485</a></li>
-<li>timeouts 8.6.0≤v&lt;8.8.2 for throttled PIT requests, <a href="https://github.com/elastic/elasticsearch/issues/96775">es#96775</a></li>
+<li>timeouts 8.6.0≤v&lt;8.8.2 for throttled PIT requests, <a href="https://github.com/elastic/elasticsearch/issues/96775">elasticsearch#96775</a></li>
 </ul>
 </li>
 </ul>
@@ -338,7 +338,7 @@ troubleshooting.</p>
 </span></span><span style="display:flex;"><span>&gt; GET */_search
 </span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;size&#34;</span>: 0, <span style="color:#e6db74">&#34;aggs&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;0&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;terms&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;_index&#34;</span>, <span style="color:#e6db74">&#34;order&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;_count&#34;</span>: <span style="color:#e6db74">&#34;desc&#34;</span> <span style="color:#f92672">}</span>, <span style="color:#e6db74">&#34;size&#34;</span>: <span style="color:#ae81ff">200</span> <span style="color:#f92672">}}</span> <span style="color:#f92672">}</span>, <span style="color:#e6db74">&#34;query&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;bool&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;must&#34;</span>: <span style="color:#f92672">[]</span>, <span style="color:#e6db74">&#34;filter&#34;</span>: <span style="color:#f92672">[</span> <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;range&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;@timestamp&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;gte&#34;</span>: <span style="color:#e6db74">&#34;now&#34;</span> <span style="color:#f92672">}}}]</span> <span style="color:#f92672">}</span> <span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 👻 👻 time ranges of all indices, will likely be expensive</span>
-</span></span><span style="display:flex;"><span>GET */_search?filter_path<span style="color:#f92672">=</span>aggregations
+</span></span><span style="display:flex;"><span>&gt; GET */_search?filter_path<span style="color:#f92672">=</span>aggregations
 </span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;size&#34;</span>: 0, <span style="color:#e6db74">&#34;aggs&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;2&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;aggs&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;first_time&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;min&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;@timestamp&#34;</span><span style="color:#f92672">}</span> <span style="color:#f92672">}</span>, <span style="color:#e6db74">&#34;last_time&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;max&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;@timestamp&#34;</span><span style="color:#f92672">}</span> <span style="color:#f92672">}</span> <span style="color:#f92672">}</span>, <span style="color:#e6db74">&#34;terms&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;_index&#34;</span>, <span style="color:#e6db74">&#34;order&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;_key&#34;</span>: <span style="color:#e6db74">&#34;asc&#34;</span><span style="color:#f92672">}</span>, <span style="color:#e6db74">&#34;size&#34;</span>: <span style="color:#ae81ff">500</span> <span style="color:#f92672">}</span> <span style="color:#f92672">}}</span> <span style="color:#f92672">}</span>
 </span></span></code></pre></div></li>
 </ul>
@@ -440,7 +440,7 @@ troubleshooting.</p>
     
 
     
-    <span>&copy; 2023 © 2023 Stef Nestor</span>
+    <span>&copy; 2023 Stef Nestor</span>
     
     <span>
         Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/526avijitgupta/gokarna">Gokarna</a>

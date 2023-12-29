@@ -98,7 +98,7 @@ $ cat kibana_task_manager_health.json | jq -rc '{overall:.status, capacity:.stat
     - 7.5.0≤v≤7.13.0 `Expected _scroll_id in the following Elasticsearch response` CSV export not supported against Frozen. Resolved [kibana#88303](https://github.com/elastic/kibana/pull/88303). 
     - `token expired` / `Cannot read properties of undefined (reading 'convert')` short-term increase xpack.security.authc.token.timeout, long-term [kibana#71866](https://github.com/elastic/kibana/issues/71866) 
     - `Array buffer allocation failed` Upgrade ≥v7.15.0 for chunked export via [kibana#108485](https://github.com/elastic/kibana/pull/108485)
-    - timeouts 8.6.0≤v<8.8.2 for throttled PIT requests, [es#96775](https://github.com/elastic/elasticsearch/issues/96775)
+    - timeouts 8.6.0≤v<8.8.2 for throttled PIT requests, [elasticsearch#96775](https://github.com/elastic/elasticsearch/issues/96775)
 
 # Saved Objects
 [doc](https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html) ([export/import](https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#managing-saved-objects-export-objects)), ([service doc](https://www.elastic.co/guide/en/kibana/8.0/saved-objects-service.html)), [api](https://www.elastic.co/guide/en/kibana/current/saved-objects-api.html), [version compatibilities](https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#_compatibility_across_versions) 
@@ -203,7 +203,7 @@ $ cat rules.json | jq -rc '.hits.hits[]|._source.alert as $a|$a.createdAt[:10]' 
         > GET */_search
         { "size": 0, "aggs": { "0": {"terms": {"field": "_index", "order": { "_count": "desc" }, "size": 200 }} }, "query": {"bool": {"must": [], "filter": [ { "range": { "@timestamp": { "gte": "now" }}}] } } }
         # 👻 👻 time ranges of all indices, will likely be expensive
-        GET */_search?filter_path=aggregations
+        > GET */_search?filter_path=aggregations
         { "size": 0, "aggs": { "2": {"aggs": {"first_time": {"min": {"field": "@timestamp"} }, "last_time": {"max": {"field": "@timestamp"} } }, "terms": {"field": "_index", "order": {"_key": "asc"}, "size": 500 } }} }
         ```
 
