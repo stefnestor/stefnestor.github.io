@@ -7,6 +7,7 @@ showTableOfContents = true
 tags = [ 'elastic', 'elasticsearch', 'jq' ]
 +++
 
+
 > This Elasticsearch outline is purposely narrowed to topics/APIs _most_ relevant to performance/outage 
 > troubleshooting. 
 > 
