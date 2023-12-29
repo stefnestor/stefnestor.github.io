@@ -2,6 +2,7 @@ baseURL = 'https://stefnestor.github.io/'
 languageCode = 'en-us'
 title = '🦖'
 theme = 'gokarna'
+publishDir = 'docs'
 
 enableRobotsTXT = true
 

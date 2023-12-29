@@ -27,7 +27,7 @@ tags = [ 'elastic', 'kibana', 'jq' ]
 - [blog](https://www.elastic.co/blog/troubleshooting-kibana-health): health, performance issues
     > Most features run from the Elasticsearch service; however a handful of features run from Kibana: [Telemetry](https://www.elastic.co/guide/en/kibana/current/telemetry-settings-kbn.html), [Rules](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html) (w/associated [Actions](https://www.elastic.co/guide/en/kibana/current/action-types.html)), [Reporting](https://www.elastic.co/guide/en/kibana/current/reporting-getting-started.html), & [Sessions](https://www.elastic.co/guide/en/kibana/current/xpack-security-session-management.html). 
     > 
-    > Most of these only require metadata to process so are discoverable via searching `.kibana*`. However, Reporting and Sessions contain PII so are stored separately (respectively `.reporting*` & `.kibana_security_session*`). These latter indices are redacted from Elastic's view in [Elastic Cloud](https://www.elastic.co/cloud/) and all mentioned [system indices](https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#system-indices) are redacted from [Diagnostic](https://github.com/elastic/support-diagnostics#usage-examples) view. 
+    > Most of these only require metadata to process so are discoverable via searching `.kibana*`. However, Reporting and Sessions contain PII so are stored separately (respectively `.reporting*` & `.kibana_security_session*`). These latter indices are redacted from Elastic's view in [ESS](https://www.elastic.co/cloud/) and all mentioned [system indices](https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#system-indices) are redacted from [Diagnostic](https://github.com/elastic/support-diagnostics#usage-examples) view. 
     > 
     > [Task Manager doc](https://www.elastic.co/guide/en/kibana/current/task-manager-production-considerations.html) Kibana Task Manager is leveraged by features such as [Rules](app://obsidian.md/elastic%20kibana%20rule), [Actions](app://obsidian.md/elastic%20kibana%20connector%20action), and [Reporting](app://obsidian.md/elastic%20kibana%20reporting) to run mission critical work as persistent background tasks. These background tasks distribute work across multiple Kibana instances.
 
@@ -69,13 +69,13 @@ $ cat kibana_task_manager_health.json | jq -rc '{overall:.status, capacity:.stat
 
 # Session
 
-[doc](https://www.elastic.co/guide/en/kibana/current/xpack-security-session-management.html) ([resolve](https://discuss.elastic.co/t/kibana-session-issues/289299/10))
+[doc](https://www.elastic.co/guide/en/kibana/current/xpack-security-session-management.html)
 
 **Problem Box**
-- Auth troubleshooting guide [kibana#83914](https://github.com/elastic/kibana/issues/83914)
+- [resolve](https://discuss.elastic.co/t/kibana-session-issues/289299/10), [kibana#83914](https://github.com/elastic/kibana/issues/83914): Auth troubleshooting guide 
 - Login erring 500
     - `.kibana*` indices unhealthy
-    - ESS/ECE > Kibana Role Mapping disconnected
+    - ESS/ECE > Kibana built-in `role_mapping` disconnected
 - Login erring 403
     - Traffic Filters & user IP doesn’t qualify 
     - username does not have sufficient permissions
@@ -189,12 +189,25 @@ $ cat rules.json | jq -rc '.hits.hits[]|._source.alert as $a|$a.createdAt[:10]' 
 **Problem Box**
 - [doc](https://www.elastic.co/guide/en/kibana/current/alerting-setup.html#alerting-authorization): permissions of last editing user
 - Rules searching Frozen
-    - Rule w/low `params.from` inducing `partial-*` searches seen via CAT Tasks. If confirmed, 1) [Disable Rule](https://www.elastic.co/guide/en/kibana/current/disable-rule-api.html) , 2) fix Frozen dates by either a) wait for these Frozen indices to ILM roll off / [delete](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html) , b) [Reindex](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html) to non-Frozen then [Update by Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html) or [Delete by Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html) to remove the incorrect dates. In latter versions can potentially use Cluster State to try to confirm:
+    - Rule w/low `params.from` inducing `partial-*` searches seen via CAT Tasks. If confirmed, 1) [Disable Rule](https://www.elastic.co/guide/en/kibana/current/disable-rule-api.html) , 2) fix Frozen dates by either a) wait for these Frozen indices to ILM roll off / [delete](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html) , b) [Reindex](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html) to non-Frozen then [Update by Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html) or [Delete by Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html) to remove the incorrect dates.
         ```bash
+        ## symptoms
+        > GET _cat/thread_pool/search?v=true&s=n,nn&h=n,nn,q,a,r,c # search queue on frozen nodes
+        > GET _tasks?pretty&human&detailed=true&actions=indices:data/read/search
+
+        ## confirm, increasing expensiveness
+        # only available later versions, I think ≥v8.3
+        > GET _cluster/state?filter_path=metadata.indices.*.timestamp_range
         $ cat cluster_state.json | jq -cMr '.metadata.indices| to_entries| sort_by(.key)| .[]| .value.timestamp_range as $ts| select($ts.max)| select(($ts.max/1000.0)>now)| {min:($ts.min/1000.0|todate), max:($ts.max/1000.0|todate), index:.key}'
+        # 👻 look for future docs, may be expensive
+        > GET */_search
+        { "size": 0, "aggs": { "0": {"terms": {"field": "_index", "order": { "_count": "desc" }, "size": 200 }} }, "query": {"bool": {"must": [], "filter": [ { "range": { "@timestamp": { "gte": "now" }}}] } } }
+        # 👻 👻 time ranges of all indices, will likely be expensive
+        GET */_search?filter_path=aggregations
+        { "size": 0, "aggs": { "2": {"aggs": {"first_time": {"min": {"field": "@timestamp"} }, "last_time": {"max": {"field": "@timestamp"} } }, "terms": {"field": "_index", "order": {"_key": "asc"}, "size": 500 } }} }
         ```
 
-- [doc](https://www.elastic.co/guide/en/kibana/current/alerting-common-issues.html#rules-long-execution-time): duration, expensive
+- [blog](https://www.elastic.co/blog/troubleshooting-kibana-health), [doc](https://www.elastic.co/guide/en/kibana/current/alerting-common-issues.html#rules-long-execution-time): duration, expensive
     
     Kibana [SIEM](https://www.elastic.co/guide/en/security/current/es-overview.html) (aka. Security "Detections Engine") is a specific type of the [Rule](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html) task which is a sub-set of Kibana [Tasks](https://www.elastic.co/guide/en/kibana/current/task-manager-production-considerations.html) ([PDF](https://github.com/stefnestor/elastic/blob/main/Kibana/Security/security_cheatsheet.pdf)). Kibana Task processing stores [Event Logs](https://github.com/elastic/kibana/tree/main/x-pack/plugins/event_log) into space-agnostic .kibana-event-log* (and by association (SIEM) Rule processing info). Therefore, you can use [this query](https://www.elastic.co/guide/en/kibana/current/alerting-common-issues.html#rules-long-execution-time) to view top expensive Rules by `_source.alert.legacyID`.
     ```bash
