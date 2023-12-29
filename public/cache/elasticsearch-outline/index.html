@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Elasticsearch Outline</title>
+    <meta name="description" content="">
+    <meta name="keywords" content='elastic, elasticsearch, jq'>
+
+    <meta property="og:url" content="https://example.org/cache/elasticsearch-outline/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Elasticsearch Outline">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://example.org/">
+    <meta property="og:image:secure_url" content="https://example.org/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Elasticsearch Outline">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="https://example.org/cache/elasticsearch-outline/">
+    <meta property="twitter:url" content="https://example.org/cache/elasticsearch-outline/">
+    <meta name="twitter:image" content="https://example.org/">
+
+    
+    <link rel="canonical" href="https://example.org/cache/elasticsearch-outline/" />
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.27043ee3e4fae9fba993230b5c2ba193e1f265beeea9c49a69d028f72b22ccb5.js" integrity="sha256-JwQ&#43;4&#43;T66fupkyMLXCuhk&#43;HyZb7uqcSaadAo9ysizLU="></script>
+
+    
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://example.org/">🦖</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://example.org/labs/"> labs </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://example.org/cache/"> cache </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://example.org/tags/"> tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://example.org/labs/"> labs </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://example.org/cache/"> cache </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://example.org/tags/"> tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Elasticsearch Outline</h1>
+        <small role="doc-subtitle"></small>
+        <p class="post-date">April 3, 2022
+        
+        </p>
+
+        <ul class="post-tags">
+        
+            <li class="post-tag"><a href="https://example.org/tags/elastic">elastic</a></li>
+        
+            <li class="post-tag"><a href="https://example.org/tags/elasticsearch">elasticsearch</a></li>
+        
+            <li class="post-tag"><a href="https://example.org/tags/jq">jq</a></li>
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            <blockquote>
+<p>This Elasticsearch outline is purposely narrowed to topics/APIs <em>most</em> relevant to performance/outage
+troubleshooting.</p>
+<p>It correlates to <a href="https://medium.com/@stefnestor/use-method-for-elasticsearch-d976802d8ba6">USE Method for Elasticsearch</a>. See <a href="/use_method_elasticsearch.pdf">related PDF</a>.</p>
+</blockquote>
+<hr>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">doc</a>
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html">api</a>
+, <a href="https://github.com/elastic/elasticsearch/">code</a>
+, <a href="https://github.com/elastic/support-diagnostics#usage-examples">diagnostic</a> (<a href="https://github.com/elastic/support-diagnostics/blob/main/src/main/resources/elastic-rest.yml">code</a>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/logging.html">logs</a>
+(<a href="https://gist.github.com/stefnestor/c508c23f305258723d49b915d684456d">loggers</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/audit-event-types.html">audit</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-slowlog.html">slow logs</a>)</p>
+<p><strong>Problem Box</strong></p>
+<ul>
+<li>diagnostic errors
+<ul>
+<li><code>Error: Could not find or load main class com.elastic.support.diagnostics.DiagnosticApp</code> downloaded source instead of zip from releases</li>
+<li><code>Could not retrieve the Elasticsearch version due to a system or network error - unable to continue.</code> Is generated during the first operation of the diagnostic where it determines what calls to run by first checking what version of Elasticsearch is the target. If this fails it is usually due to incorrect information supplied in the parameter list. Such as an invalid host, <a href="https://github.com/elastic/support-diagnostics/issues/389#issuecomment-605308128">doc</a></li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/logging.html#configuring-logging-levels">doc</a>: debug logs ( <code>logger.org.elasticsearch: DEBUG</code> )</li>
+</ul>
+<h1 id="nodes">Nodes</h1>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html">doc</a>
+( <a href="https://medium.com/@stefnestor/elasticsearch-node-roles-d2c7ad08b4f8">node roles</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-tiers.html">data tiers</a> (<a href="https://www.elastic.co/pdf/elasticsearch-sizing-and-capacity-planning.pdf">resource usage per</a>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/shard-allocation-filtering.html">attributes</a> )</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html">CAT Nodes</a> (<code>cat_nodes.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-hot-threads.html">Hot Threads</a> (<code>node_hot_threads.txt</code>; <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-usage.html">Usage</a> (<code>nodes_usage.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html">Stats</a> (<code>nodes_stats.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html">Info</a> (<code>nodes.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodeattrs.html">CAT NodeAttrs</a> (<code>cat_nodeattrs.txt</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># not container level, will report host’s stats</span>
+</span></span><span style="display:flex;"><span>&gt; GET _cat/nodes?v&amp;s<span style="color:#f92672">=</span>master,name&amp;h<span style="color:#f92672">=</span>name,id,master,node.role,heap.percent,disk.used_percent,cpu,uptime
+</span></span><span style="display:flex;"><span>$ jq <span style="color:#e6db74">&#39;.nodes|input.master_node as $master|input.nodes as $ns|to_entries[]|{id:.key, ip:.value.ip, host:.value.host, name:.value.name, roles:.value.roles, is_master:(if .key == $master then true else false end), disk_avail:$ns[.key].fs.total.free, heap_percent:$ns[.key].jvm.mem.heap_used_percent, cpu:$ns[.key].os.cpu.percent, loads:$ns[.key].os.cpu.load_average}&#39;</span> nodes.json cluster_state.json nodes_stats.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _nodes
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># node version</span>
+</span></span><span style="display:flex;"><span>$ cat nodes.json | jq <span style="color:#e6db74">&#39;[.nodes[]|{id:.name,v:.version}]&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># max heap</span>
+</span></span><span style="display:flex;"><span>$ cat nodes.json | jq -r <span style="color:#e6db74">&#39;.nodes|to_entries[]|[.value.jvm.mem.heap_max, .key[:4]]|@tsv&#39;</span> | column -t | sort
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _nodes/hot_threads <span style="color:#75715e"># default only shows active threads  </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sum by thread pool stats</span>
+</span></span><span style="display:flex;"><span>$ cat nodes_hot_threads.txt | grep -Ei <span style="color:#e6db74">&#39;:::|cpu|%&#39;</span> | grep -v <span style="color:#e6db74">&#39;0.0%&#39;</span> | grep -Eo <span style="color:#e6db74">&#39;\]\[+[^,]*\]\[T&#39;</span> | sed <span style="color:#e6db74">&#39;s/\]\[T//g&#39;</span> | sed <span style="color:#e6db74">&#39;s/\]\[//g&#39;</span> | stats
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># simplified</span>
+</span></span><span style="display:flex;"><span>$ cat nodes_hot_threads.txt | grep -Ei <span style="color:#e6db74">&#39;:::|cpu|%&#39;</span> | grep -v <span style="color:#e6db74">&#39;0.0%&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _nodes/usage
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># node uptime</span>
+</span></span><span style="display:flex;"><span>$ cat nodes_usage.json | jq -cr <span style="color:#e6db74">&#39;.nodes|to_entries[]|[(.value.since|tostring|.[:10]|tonumber|todate), .key[:4]]|@tsv&#39;</span> | column -t | sort -r
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _cat/nodeattrs
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.11/_onerror_and_onoutofmemoryerror_checks.html">doc</a>: OOM, <code>OutOfMemoryError</code>
+<ul>
+<li><a href="https://github.com/elastic/elasticsearch/issues/14065#issuecomment-148734756">elasticsearch#14065</a>: guarantee node restarted after OOM</li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/hotspotting.html">doc</a>: hot spot, hotspotting - when nodes not balanced (by resource usage, available resources, or throughput)
+<ul>
+<li><a href="https://gist.github.com/octavioranieri/e75cf7252928a321a418a528ed506c22">compare two ES diagnostic&rsquo;s ingest node*index</a></li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-cluster.html#disk-based-shard-allocation">doc</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/fix-watermark-errors.html">resolve</a>): watermark, full disk, disk full
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cluster/settings?include_defaults<span style="color:#f92672">=</span>true&amp;filter_path<span style="color:#f92672">=</span>*.cluster.routing.allocation.disk.watermark
+</span></span></code></pre></div><ul>
+<li>(default) levels : effect
+<ul>
+<li>75%: UI warns but no system action</li>
+<li>85% <code>low</code>: stop allocating more shards</li>
+<li>90% <code>high</code>: moves shards off node</li>
+<li>95% <code>flood-stage</code>: sets indices to read-only (auto-unsets after node recovers off <code>high</code>)</li>
+</ul>
+</li>
+<li>if suspect &ldquo;auto-unset&rdquo; not take effect, run once (usually comes up for <code>.kibana</code> indices; if system re-applies, root problem not yet resolved):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; PUT _all/_settings
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;index.blocks.read_only_allow_delete&#34;</span>: null <span style="color:#f92672">}</span>
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>IOStat, IOWait, I/O, Input/Output
+<ul>
+<li>&ldquo;I/O blocking&rdquo; or &ldquo;IO Wait&rdquo; is when CPU needs to write to (sync) disk and is caught waiting on write acknowledgement from data storage.
+<ul>
+<li>high CPU w/o explanation</li>
+<li>use iostat tool (checking for persistently high avgqu-sz values) OR <code>bash linux sar</code></li>
+<li>high flush duration almost always indicates disk problems</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://medium.com/@stefnestor/elasticsearch-ingest-rejections-ce97e2e9da00">doc</a>: Ingest Protections/Rejections, HTTP 429
+<ul>
+<li>Coordinating Rejections
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _nodes/stats?filter_path<span style="color:#f92672">=</span>*.*.name,*.*.indexing_pressure.memory.total.coordinating_rejections
+</span></span><span style="display:flex;"><span>$ cat nodes_stats.json | jq -c <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;.nodes|to_entries[]|{node_name:.key,coordinating_rejections: .value.indexing_pressure.memory.total.coordinating_rejections}|select(.coordinating_rejections&gt;0)&#39;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html">doc</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker-errors.html">resolve</a>), <a href="https://www.elastic.co/blog/improving-node-resiliency-with-the-real-memory-circuit-breaker">blog</a>: Circuit Breakers, <code>Data too large</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat *.log | grep -i <span style="color:#e6db74">&#39;CircuitBreakingException&#39;</span>
+</span></span><span style="display:flex;"><span>&gt; GET _nodes/stats?filter_path<span style="color:#f92672">=</span>nodes.*.breakers
+</span></span><span style="display:flex;"><span>$ cat nodes_stats.json | jq -c <span style="color:#e6db74">&#39;.nodes[]|.name as $node|.breakers|to_entries[]|{node:$node, circuitBreaker:.key, tripped_count:.value.tripped}|select(.tripped_count&gt;0)&#39;</span>
+</span></span></code></pre></div><ul>
+<li>types
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html#accounting-circuit-breaker">doc</a>: accounting
+<ul>
+<li>used for lucene elastic elasticsearch index shard segment (and overhead, <code>GET _nodes/stats/indices?filter_path=**.segments</code> )</li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html#fielddata-circuit-breaker">doc</a>: fielddata used for global ordinals, fielddata</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html#parent-circuit-breaker">doc</a>: parent</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/eql.html#eql-circuit-breaker">doc</a>: eql_sequence</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html#request-circuit-breaker">doc</a>: request
+<ul>
+<li>used for request bodies (e.g. Bulk API)</li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html#circuit-breakers-page-model-inference">doc</a>: model_inference</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html#in-flight-circuit-breaker">doc</a>: inflight_requests
+<ul>
+<li>vs request: <a href="https://github.com/elastic/elasticsearch/pull/27116">elasticsearch#27116</a> (used for the network bytes which are being serialized)</li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html#script-compilation-circuit-breaker">doc</a>: script</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker.html#regex-circuit-breaker">doc</a>: regex</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="installupgrade">Install/Upgrade</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html">doc</a> ( <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/current/intro.html">plugins</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/current/listing-removing-updating.html">list</a>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/monitoring-overview.html">monitoring</a> )</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-plugins.html">CAT Plugins</a> (<code>plugins.json</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/plugins?v&amp;h<span style="color:#f92672">=</span>c,t,n,v,d&amp;s<span style="color:#f92672">=</span>c,t
+</span></span><span style="display:flex;"><span>$ cat nodes.json | jq -c <span style="color:#e6db74">&#39;.nodes[].plugins[]|{name:.name, version:.version, classname:.classname, description:.description}&#39;</span>
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/high-availability.html">doc</a> (<a href="https://www.elastic.co/guide/en/cloud/current/ec-planning.html">alt.ESS</a>): high availablility, highly available, HA</p>
+</li>
+<li>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html#_node_data_path_settings">doc</a>: no security/vulnerability scanners</p>
+</li>
+<li>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html#compressed_oops">doc</a>: not &gt;32GB ram</p>
+</li>
+<li>
+<p><a href="https://www.elastic.co/guide/en/cloud/current/ec-configure-deployment-settings.html#ec_version">doc</a>: can’t downgrade; would need to snapshot-restore to reset to previous version</p>
+</li>
+<li>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html#dedicated-host">doc</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html">alt</a>: dedicated host</p>
+</li>
+<li>
+<p><a href="https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing#storage-devices">doc</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/tune-for-indexing-speed.html#_use_faster_hardware">doc ≤v8.1</a>; <a href="https://github.com/elastic/elasticsearch/pull/85060">elasticsearch#85060</a> &gt; <a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.3/tune-for-indexing-speed.html#_use_faster_hardware">doc ≥8.2</a>): storage devices (SSDs, NOT NFS/SMB/CIFS, beware EBS)</p>
+<pre tabindex="0"><code>$ df -hT
+$ mount
+</code></pre></li>
+<li>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html">doc</a> swap, swapping</p>
+<blockquote>
+<p>[A] Confirm taking effect :: If using <code>bootstrap.memory_lock:true </code>, confirm</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat nodes.json | jq -r <span style="color:#e6db74">&#39;.nodes|to_entries[]|[.value.settings.bootstrap.memory_lock, .value.process.mlockall, .key[:4]]|@tsv&#39;</span> | column -t
+</span></span><span style="display:flex;"><span>&gt; GET _nodes?filter_path<span style="color:#f92672">=</span>**.mlockall,**.memory_lock
+</span></span></code></pre></div><p>Any method final effect</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _nodes/stats?filter_path<span style="color:#f92672">=</span>**.swap
+</span></span><span style="display:flex;"><span>$ cat nodes_stats.json | jq -rc <span style="color:#e6db74">&#39;.nodes[]|[.os.swap.used, .name]|@tsv&#39;</span> | column -t | sort -r
+</span></span><span style="display:flex;"><span>$ cat nodes_stats.json | jq -r <span style="color:#e6db74">&#39;.nodes|to_entries[]|[.value.os.swap.used,.value.os.swap.total,.key[:4]]|@tsv&#39;</span> | column -t
+</span></span></code></pre></div></blockquote>
+</li>
+<li>
+<p>sizing: <a href="https://www.elastic.co/blog/how-to-design-your-elasticsearch-data-storage-architecture-for-scale">blog</a> (<a href="https://www.elastic.co/blog/found-sizing-elasticsearch">partitioning</a>), <a href="https://community.elastic.co/events/details/elastic-emea-virtual-presents-sizing-the-elastic-stack-for-security-use-cases/#/">webinar</a>, <a href="https://www.elastic.co/guide/en/kibana/current/task-manager-production-considerations.html#task-manager-scaling-guidance">kibana</a></p>
+<blockquote>
+<p>Total data GB  raw data GB/day) <em># days retained</em> # (replicas  1
+Total storage GB  total data GB * 1  0.15 disk watermark threshold  0.1 margin of error)
+Total data nodes  ROUNDUP total storage GB / memory per data node GB / Memory:Data ratio)</p>
+</blockquote>
+<blockquote>
+<p>JVM_FROM_DISK</p>
+<pre tabindex="0"><code>hot_nodes = X * Y * Z / A / B
+where
+- X: gb raw daily ingested size
+- Y: days retained in hot nodes
+- Z: number_of_replicas
+- A: ram-to-disk; recommended = 30 - B: ram per host
+</code></pre><p>CPU_FROM_DISK</p>
+<pre tabindex="0"><code>hot_nodes = X / C / B
+where
+- X: gb raw daily ingested size - C: ingest per gb/ram; defaults:
+- logging: 2 - B: ram per host
+</code></pre></blockquote>
+</li>
+</ul>
+<h2 id="snapshot-repository">Snapshot Repository</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html">doc</a> ( <a href="https://www.elastic.co/blog/how-do-incremental-snapshots-work">how works</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshot-restore.html">restore</a>, (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/getting-started-snapshot-lifecycle-management.html">ES tutorial</a>, <a href="https://www.elastic.co/guide/en/kibana/current/snapshot-restore-tutorial.html">KB tutorial</a>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshot-restore.html#snapshot-restore-version-compatibility">versionCompatibility</a> )</p>
+<ul>
+<li>hosts (with default keystore):
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html#snapshots-filesystem-repository">FileSystem</a> (FS)</li>
+<li><a href="https://www.elastic.co/guide/en/cloud/current/ec-azure-snapshotting.html">Azure</a>  (  <code>azure.client.secondary.account</code>, <code>azure.client.secondary.key</code> )</li>
+<li><a href="https://www.elastic.co/guide/en/cloud/current/ec-gcs-snapshotting.html">GCP</a> ( <code>gcs.client.default.credentials_file </code> )</li>
+<li><a href="https://www.elastic.co/guide/en/cloud/current/ec-aws-custom-repository.html">AWS S3</a>, <a href="https://medium.com/@stefnestor/elasticsearch-snapshot-repositories-in-aws-s3-8e6e853eb6c3">doc</a> ( <code>s3.client.default.access_key</code>, <code>s3.client.default.secret_key</code> )
+<pre tabindex="0"><code>PUT _cluster/settings 
+{&#34;transient&#34;: {&#34;logger.org.elasticsearch.repositories.s3&#34;: &#34;TRACE&#34;, &#34;logger.com.amazonaws&#34; : &#34;DEBUG&#34;}}
+</code></pre></li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/create-snapshot-api.html">doc</a>: <code>include_global_state</code>
+<ul>
+<li>👍 : persistent cluster settings, (legacy) index templates, ingest pipelines, ILM policies, stored scripts, feature states (≥7.12)</li>
+<li>👎 : transient cluster settings, snapshot repositories, node configuration files (e.g. metadata XML, plugins, security), index settings/mappings</li>
+<li>🤷‍♀️? : license, search template, script, rollup job, cluster remote info, autoscaling, persistent tasks</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-repositories.html">CAT Repositories</a> (<code>cat_repositories.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/get-snapshot-repo-api.html">Read Repository</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/put-snapshot-repo-api.html">Put Repository</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html">Read Metering</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/verify-snapshot-repo-api.html">Verify</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-snapshots.html">CAT Snapshot</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/get-snapshot-api.html">Read Snapshot</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/restore-snapshot-api.html">Restore</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># repositories</span>
+</span></span><span style="display:flex;"><span>&gt; GET _cat/repositories?v&amp;s<span style="color:#f92672">=</span>t
+</span></span><span style="display:flex;"><span>&gt; GET _snapshot/*
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## verify</span>
+</span></span><span style="display:flex;"><span>&gt; POST _snapshot/my_repository/_verify
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># snapshots</span>
+</span></span><span style="display:flex;"><span>&gt; GET _cat/snapshots?v&amp;s<span style="color:#f92672">=</span>eti:desc&amp;h<span style="color:#f92672">=</span>id,re,fs,ts,r,sti,eti,dur
+</span></span><span style="display:flex;"><span>&gt; GET _snapshot/_all/*
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## current</span>
+</span></span><span style="display:flex;"><span>GET _snapshot/_all/_current?filter_path<span style="color:#f92672">=</span>total,snapshots.state,snapshots.start_time,snapshots.shards
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## ESS SLM</span>
+</span></span><span style="display:flex;"><span>&gt; GET _snapshot/found-snapshots/_all?index_names<span style="color:#f92672">=</span>false&amp;sort<span style="color:#f92672">=</span>start_time&amp;size<span style="color:#f92672">=</span>150&amp;order<span style="color:#f92672">=</span>desc&amp;slm_policy_filter<span style="color:#f92672">=</span>cloud-snapshot-policy
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li>&ldquo;all current data&rdquo;? No, all committed (not currently being written) segments</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshot-restore.html#snapshot-restore-warnings">doc</a>: other backup methods (e.g. VM) not supported</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshot-restore.html#snapshot-restore-version-compatibility">doc</a>: can only restore older versions into newer</li>
+<li><a href="https://underthehood.meltwater.com/blog/2023/05/11/promoting-replica-shards-to-primary-in-elasticsearch-and-how-it-saves-us-12k-during-rolling-restarts/">doc</a>: primary rotating requires fully syncing new segments</li>
+</ul>
+<h2 id="security">Security</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/secure-cluster.html">doc</a>
+( <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/defining-roles.html">roles</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/authorization.html#roles">alt</a>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-roles.html">role mappings</a>
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-settings.html#api-key-service-settings">api key</a>
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/service-accounts.html">service account</a>; token: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/service-accounts.html#service-accounts-tokens">doc</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/service-tokens-command.html">CLI</a>
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-settings.html#transport-tls-ssl-settings">transport</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html#transport-profiles">profile</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-settings.html#ssl-tls-profile-settings">settings</a>) )</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cluster/settings?include_defaults<span style="color:#f92672">=</span>true&amp;filter_path<span style="color:#f92672">=</span>*.xpack.security
+</span></span></code></pre></div><p>realms: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/realms.html">ES doc</a>, <a href="https://www.elastic.co/guide/en/kibana/current/kibana-authentication.html">KB doc</a>, <a href="https://www.elastic.co/guide/en/cloud/current/ec-securing-clusters-SAML.html">ESS doc</a>); restrictions: <a href="https://www.elastic.co/guide/en/cloud/current/ec-restrictions.html#ec-restrictions-security">ESS</a>, <a href="https://www.elastic.co/guide/en/cloud-enterprise/current/ece-limitations.html#ece_security_2">ECE</a>; <a href="https://www.elastic.co/blog/demystifying-authentication-and-authorization-in-elasticsearch">blog</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/file-realm.html">File-based</a> (<a href="https://medium.com/@stefnestor/elasticsearch-file-based-realm-2508ff0e5de2">resolve</a>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/native-realm.html">Native</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/built-in-users.html">built-in</a>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/saml-realm.html">SAML</a> ( <a href="https://www.elastic.co/guide/en/cloud/current/ec-securing-clusters-SAML.html">blog</a>; ADFS (<a href="https://www.elastic.co/blog/how-to-configure-elasticsearch-saml-authentication-with-adfs">blog</a>), AWS, AzureAD (<a href="https://www.elastic.co/blog/saml-based-single-sign-on-with-elasticsearch-and-azure-active-directory">blog</a>), GCP, Okta (<a href="https://www.elastic.co/blog/setting-up-saml-for-elastic-enterprise-search-okta-edition">blog</a>) )
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ldap-realm.html">LDAP</a>
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/kerberos-realm.html">Kerberos</a> (<a href="https://www.elastic.co/blog/how-to-secure-your-elasticsearch-clusters-using-kerberos">blog</a>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/jwt-auth-realm.html">JWT</a>
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/oidc-guide.html">OIDC</a> (<a href="https://www.elastic.co/blog/how-to-set-up-openid-connect-on-elastic-cloud-with-azure-google-okta">blog</a>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/pki-realm.html">PKI</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-user.html">Create Native User</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-change-password.html">Update Native User Password</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-enable-user.html">Enable Native User</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-disable-user.html">Disable Native User</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user.html">Read Native User</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-user.html">Delete Native User</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># realms</span>
+</span></span><span style="display:flex;"><span>&gt; GET _cluster/settings?include_defaults<span style="color:#f92672">=</span>true&amp;filter_path<span style="color:#f92672">=</span>*.xpack.security.authc.realms
+</span></span><span style="display:flex;"><span>$ cat cluster_settings_defaults.json | jq <span style="color:#e6db74">&#39;.defaults|to_entries[]|select(.key|contains(&#34;xpack.security.authc.realms&#34;))&#39;</span>
+</span></span><span style="display:flex;"><span>$ cat cluster_settings_defaults.json | jq . | grep xpack.security.authc.realms
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Lucene Logs</span>
+</span></span><span style="display:flex;"><span>realm OR metadata OR authentic OR saml OR oidc or ldap or pki or kerberos
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># realms &gt; native users</span>
+</span></span><span style="display:flex;"><span>&gt; GET _security/user
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; POST _security/user/tmp_superuser
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;password&#34;</span> : <span style="color:#e6db74">&#34;changeme&#34;</span>, <span style="color:#e6db74">&#34;roles&#34;</span> :<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;superuser&#34;</span><span style="color:#f92672">]}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># superuser+system_indices</span>
+</span></span><span style="display:flex;"><span>&gt; POST _security/role/tmp_system_superuser_role
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;applications&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;application&#34;</span>: <span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#e6db74">&#34;privileges&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">]</span>, <span style="color:#e6db74">&#34;resources&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">}</span> <span style="color:#f92672">]</span>, <span style="color:#e6db74">&#34;run_as&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">]</span>, <span style="color:#e6db74">&#34;cluster&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;all&#34;</span><span style="color:#f92672">]</span>, <span style="color:#e6db74">&#34;indices&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;privileges&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;all&#34;</span><span style="color:#f92672">]</span>, <span style="color:#e6db74">&#34;allow_restricted_indices&#34;</span>: true, <span style="color:#e6db74">&#34;names&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">}</span> <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; POST _security/user/tmp_system_superuser
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;password&#34;</span> : <span style="color:#e6db74">&#34;MY_RANDOM_PASSWORD&#34;</span>, <span style="color:#e6db74">&#34;roles&#34;</span> :<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;tmp_system_superuser_role&#34;</span><span style="color:#f92672">]}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## </span>
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li>usually find <code>elasticsearch.yml</code> issues by searching node start-up logs for <code>IllegalStateException: security initialization failed</code></li>
+<li>when SSO login errors HTTP 403, need to sequentially check
+<ol>
+<li>Pull log of SSO authentication + redirect to Kibana via SAML Tracer (<a href="https://chrome.google.com/webstore/detail/saml-tracer/mpdajninpobndbfcldcmbpnnbhibjmch">Chrome</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/saml-tracer/">Firefox</a>) (works regardless of SSO realm, alt <a href="https://www.wireshark.org/">Wireshark</a> if you want to dig).</li>
+<li>Update Kibana URL to <code>KIBANA_URL/internal/security/me</code> to check metadata returned by IDP, <code>role_mapping</code> line-up, and therefore granted <code>roles</code>.</li>
+</ol>
+</li>
+</ul>
+<h1 id="cluster">Cluster</h1>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state-publishing.html">doc</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state.html">Read Cluster State</a> (<code>cluster_state.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-get-settings.html">Read Cluster Settings</a> (<code>cluster_settings_defaults.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-update-settings.html">Update Settings</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cluster/state?human
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># paths</span>
+</span></span><span style="display:flex;"><span>$ cat cluster_state.json | jq <span style="color:#e6db74">&#39;paths&#39;</span> | pbcopy
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># persistent tasks</span>
+</span></span><span style="display:flex;"><span>&gt; GET _cluster/state?filter_path<span style="color:#f92672">=</span>**.persistent_tasks
+</span></span><span style="display:flex;"><span>$ cat cluster_state.json | jq -c <span style="color:#e6db74">&#39;.metadata.persistent_tasks.tasks&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _cluster/settings?include_defaults&amp;flat_settings
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li>Any cluster state who&rsquo;s JSON output is greater than 100MB is clearly in danger zone for disrupting cluster operation.</li>
+</ul>
+<h2 id="discoverymaster">Discovery/Master</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html">doc</a> (aka. Bootstrap,Quorum,Voting)</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-master.html">CAT Master</a> (<code>cat_master.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/voting-config-exclusions.html">Edit Voting Exclusions</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/master
+</span></span><span style="display:flex;"><span>&gt; GET _cluster/state?filter_path<span style="color:#f92672">=</span>master_node
+</span></span><span style="display:flex;"><span>$ jq <span style="color:#e6db74">&#39;.nodes|input.master_node as $master|.[$master] as $value|{id:$master,ip:$value.ip, host:$value.host, name:$value.name}&#39;</span> nodes.json cluster_state.json
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery-bootstrap-cluster.html">doc</a>: remove <code>cluster.initial_master_nodes</code> from <code>elasticsearch.yml</code> after bootstrapping</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery-quorums.html">doc</a>: split brain, nodes within one cluster disagree on which node is elected master
+<ul>
+<li>even voting node count can lead to two nodes deciding they’re elected and not consolidating into one</li>
+<li>detect: check <code>GET _cluster/state/master_node?local</code> against <em>every</em> node. Each node will report their master node. If any nodes disagree, then that represents a split brain.</li>
+<li>(advanced) <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/node-tool.html#node-tool-detach-cluster">doc</a>: related logs <code>trying to join a different cluster with UUID</code></li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-fault-detection.html">doc</a>, <a href="https://medium.com/@stefnestor/es-cluster-fault-detection-6dfc10cd0d8d">alt</a>: cluster default detection
+<pre tabindex="0"><code>$ find *.log | xargs grep -he &#39;node-join\|node-left\|disconnect\|NodeDisconnectedException\|master node changed\|lagging\|followers check retry count exceeded|elected-as-master|exitcode&#39; | sed -e &#39;s/, term:.*//&#39; | sort
+# chronological order of nodes joining and leaving
+$ find *.log | xargs grep -he &#39;MasterService.*node-join\|node-left&#39; | sed -e &#39;s/, term:.*//&#39; | sort 
+
+# Lucene
+&#34;node-join&#34; OR &#34;node-left&#34; OR disconnect OR disconnected OR NodeDisconnectedException OR &#34;master node changed&#34; OR lagging OR &#34;followers check retry count exceeded&#34; OR &#34;CODE\=&#34; OR &#34;elected-as-master&#34; OR &#34;StackOverflowError&#34; OR &#34;OutOfMemory&#34; OR exitcode
+</code></pre></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/important-settings.html#path-settings">doc</a>: <code>environment is not locked</code>/<code>The process cannot access the file because it is being used by another process</code> occurs when ES file/folder modified outside ES services and undermines prerequisites. Common causes: admin, antivirus, other service touching NFS files.</li>
+</ul>
+<h2 id="allocation">Allocation</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-cluster.html#shards-rebalancing-settings">doc</a>
+( <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-allocation.html">alt</a>
+, <a href="https://www.elastic.co/blog/red-elasticsearch-cluster-panic-no-longer">blog</a>
+, <a href="https://mincong.io/2020/09/27/shard-allocation/">deciders</a> )
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-recovery.html">recovery</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/recovery.html">settings</a>)</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-allocation.html">CAT Allocation</a> (<code>cat_allocation.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-allocation-explain.html">Allocation Explain</a> (<code>allocation_explain.json</code>); <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html">Health</a> (<code>cluster_health.json</code>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-recovery.html">CAT Recovery</a> (cat_recovery.txt), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-recovery.html">Read Recovery</a> (recovery.json), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.html">Cluster Reroute</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/allocation?v&amp;s<span style="color:#f92672">=</span>node&amp;h<span style="color:#f92672">=</span>node,disk.*,shards
+</span></span><span style="display:flex;"><span>$ cat nodes_stats.json | jq <span style="color:#e6db74">&#39;.nodes[]|{shards:.indices.shard_stats.total_count, disk_indices:.indices.store.size, disk_avail:.fs.total.free, disk_avail_bytes: .fs.total.free_in_bytes, disk_total:.fs.total.total, disk_total_bytes: .fs.total.total_in_bytes, host:.host, ip:.ip, node:.name}|.+{disk_used_bytes: (.disk_total_bytes-.disk_avail_bytes)}|.+{disk_percent: (100*.disk_used_bytes/.disk_total_bytes|round)}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _cluster/allocation/explain  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;index&#34;</span>: <span style="color:#e6db74">&#34;INDEX_NAME&#34;</span>, <span style="color:#e6db74">&#34;shard&#34;</span>: NUMBER, <span style="color:#e6db74">&#34;primary&#34;</span>: BOOL <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _cluster/health
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _recovery
+</span></span><span style="display:flex;"><span>&gt; GET _cat/recovery?v&amp;active_only<span style="color:#f92672">=</span>true&amp;h<span style="color:#f92672">=</span>idx,sh,ty,st,time,bp,fp,top,snode,tnode&amp;s<span style="color:#f92672">=</span>time:desc
+</span></span><span style="display:flex;"><span>$ cat recovery.json | jq -r --sort-keys <span style="color:#e6db74">&#39;to_entries[]|.key as $k|[.value.shards[]]|map_values(.+{index_name:$k})|.[]|{time:.total_time, index_name:.index_name, shard:.shard, primary:.primary, type:.type, stage:.stage, repository:.source.repository?, source_node:.source.name?, target_node:.target.name?, translog_percent:.translog.percent, bytes_percent:.index.percent}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; POST _cluster/reroute?retry_failed<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>&gt; POST _cluster/reroute
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;commands&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;move&#34;</span>:<span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;index&#34;</span> : <span style="color:#e6db74">&#34;INDEX_NAME&#34;</span>, <span style="color:#e6db74">&#34;shard&#34;</span> : NUMBER, <span style="color:#e6db74">&#34;from_node&#34;</span> : <span style="color:#e6db74">&#34;SOURCE_NODE&#34;</span>, <span style="color:#e6db74">&#34;to_node&#34;</span> : <span style="color:#e6db74">&#34;TARGET_NODE&#34;</span> <span style="color:#f92672">}}]}</span>
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li><a href="https://medium.com/@stefnestor/elasticsearch-data-health-5e760d303b49">doc</a>: troubleshoot <code>status:red/yellow</code></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-cluster.html#shards-rebalancing-settings">doc</a>: cluster is &ldquo;balanced&rdquo; when nodes have even shard counts per data tier ≤8.6.0; however, <a href="https://www.elastic.co/blog/whats-new-elasticsearch-kibana-cloud-8-6-0">8.6.0 introduces</a> a <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-cluster.html#shards-rebalancing-heuristics">desired balance</a> (adding factors: ingest rate, shard size) where &ldquo;even shard counts&rdquo; goes from literal to weighted goal
+<ul>
+<li>WIP: <a href="https://github.com/elastic/elasticsearch/issues/41543">elasticsearch#41543</a>, <a href="https://github.com/elastic/elasticsearch/issues/17213">elasticsearch#17213</a></li>
+</ul>
+</li>
+<li>common errors
+<ul>
+<li><code>failed to obtain in-memory shard lock</code> / <code>translog from source [...] is corrupted</code> / <code>failed engine (reason: [corrupt file (source: [start])]) (resource=preexisting_corruption)</code> / <code>obtaining shard lock timed out after 5000ms</code> : Cluster Reroute Retry Failed (to get healthy data copy from other node) else Close Index and Snapshot Restore</li>
+<li>CAT Allocation&rsquo;s <code>disk.indices &lt;&lt;&lt; disk.used</code>
+<ul>
+<li>Disk indices (assigned shards) vs disk used (+ translog, unassigned shards, soft-deletes, ~recovering/migrating for plans/ILM)</li>
+<li>When moving shard, only deletes transient data on source node once index status:green, otherwise status:yellow leaves shard transient data on every node it touches</li>
+</ul>
+</li>
+<li><code>no_attempt</code> &gt; Cluster Reroute</li>
+<li><code>no_valid_shard_copy</code> &gt; all nodes in cluster? snapshot restore</li>
+</ul>
+</li>
+<li>slow allocation
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-cluster.html#cluster-shard-allocation-settings">doc</a>: <code>cluster.routing.allocation.node_concurrent_recoveries</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># set</span>
+</span></span><span style="display:flex;"><span>&gt; PUT _cluster/settings
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;transient&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;cluster.routing.allocation.node_concurrent_recoveries&#34;</span>: <span style="color:#ae81ff">4</span> <span style="color:#f92672">}}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># reset</span>
+</span></span><span style="display:flex;"><span>&gt; PUT _cluster/settings
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;transient&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;cluster.routing.allocation.node_concurrent_recoveries&#34;</span>: null <span style="color:#f92672">}}</span>
+</span></span></code></pre></div></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/recovery.html#recovery-settings">doc</a>: <code>indices.recovery.max_bytes_per_sec</code>, temporarily bump to 100-300MB for large clusters
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># set</span>
+</span></span><span style="display:flex;"><span>&gt; PUT _cluster/settings
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;transient&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;indices.recovery.max_bytes_per_sec&#34;</span>: <span style="color:#e6db74">&#34;300mb&#34;</span><span style="color:#f92672">}}</span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># reset</span>
+</span></span><span style="display:flex;"><span>&gt; PUT _cluster/settings
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;transient&#34;</span>: <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;indices.recovery.max_bytes_per_sec&#34;</span>: null <span style="color:#f92672">}}</span>  
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h1 id="tasks">Tasks</h1>
+<p><a href="https://medium.com/@stefnestor/elasticsearch-tasks-a77f6b0cb558">doc</a></p>
+<h2 id="cluster-1">Cluster</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-pending-tasks.html">CAT Cluster Tasks</a> (<code>cat_pending_tasks.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.11/cluster-pending.html">Pending Cluster Tasks</a> (<code>cluster_pending_tasks.json</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/pending_tasks?v&amp;s<span style="color:#f92672">=</span>timeInQueue:desc
+</span></span><span style="display:flex;"><span>$ cat cluster_pending_tasks.json | jq -c <span style="color:#e6db74">&#39;.tasks|sort_by(.insert_order)|.[]|{order:.insert_order, queued_time:.time_in_queue_millis, priority:.priority, source:.source}&#39;</span>
+</span></span></code></pre></div><h2 id="threadpools">ThreadPools</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-threadpool.html">doc</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-thread-pool.html">CAT ThreadPool</a> (<code>cat_thread_pool.txt</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/thread_pool?v<span style="color:#f92672">=</span>true&amp;s<span style="color:#f92672">=</span>n,nn&amp;h<span style="color:#f92672">=</span>n,nn,q,a,r,c
+</span></span><span style="display:flex;"><span>&gt; GET _nodes/stats?filter_path<span style="color:#f92672">=</span>nodes.*.thread_pool
+</span></span><span style="display:flex;"><span>$ cat nodes_stats.json | jq -rc <span style="color:#e6db74">&#39;.nodes|to_entries[]|.key as $k|.value.thread_pool|to_entries[]|.key as $a|.value|[$k[:4], $a, .queue, .active, .completed, .rejected]|@tsv&#39;</span> | column -t
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># has queue</span>
+</span></span><span style="display:flex;"><span>$ cat cat_thread_pool.txt | awk <span style="color:#e6db74">&#39;NR==1 || ($4&gt;0)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sum by thread</span>
+</span></span><span style="display:flex;"><span>$ cat cat_thread_pool.txt | awk <span style="color:#e6db74">&#39;NR!=1 &amp;&amp; $3&gt;0&#39;</span> | print <span style="color:#e6db74">&#39;$2&#34;\t&#34;$3&#39;</span> | awk <span style="color:#e6db74">&#39;{a[$1] += $2} END{for (i in a) print a[i]&#34;\t&#34;i}&#39;</span> | sort
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># threadpools</span>
+</span></span><span style="display:flex;"><span>&gt; GET _cluster/settings?include_defaults<span style="color:#f92672">=</span>true&amp;filter_path<span style="color:#f92672">=</span>*.thread_pool
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/hotspotting.html">doc</a>: hot spot, hotspotting
+<ul>
+<li>Ingest Pipeline&rsquo;s processors run on <code>write</code> thread pool</li>
+</ul>
+</li>
+<li><code>es_rejected_execution_exception</code> &gt; <code>QueueResizingEsThreadPoolExecutor</code> : queue full</li>
+</ul>
+<h2 id="node">Node</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-tasks.html">CAT Node Tasks</a> (<code>cat_tasks.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html">Read Node Tasks</a> (<code>tasks.json</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/tasks?v&amp;s<span style="color:#f92672">=</span>time:desc&amp;h<span style="color:#f92672">=</span>ty,ac,time,n,ti,pti
+</span></span><span style="display:flex;"><span>&gt; GET _tasks?pretty&amp;human&amp;detailed
+</span></span><span style="display:flex;"><span>$ cat tasks.json | jq -r <span style="color:#e6db74">&#39;.nodes | .[] | .tasks | .[] | [ ([(.running_time_in_nanos/1000000|round),&#34;ms&#34;]|join(&#34;&#34;)), .cancellable, .node[:5], .action, .id ] | @tsv&#39;</span> | sort -nr | head -10  
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li>pile-up of tasks of certain action
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat tasks.json | jq <span style="color:#e6db74">&#39;.nodes[].tasks[].action&#39;</span> | sort | uniq -c | sort -r
+</span></span></code></pre></div></li>
+<li>longest running tasks
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat tasks.json | jq -r <span style="color:#e6db74">&#39;.nodes[].tasks[]|select(.action|contains(&#34;[s]&#34;)|not)| [.running_time_in_nanos, .running_time, .cancellable, .node[:5], .action]|@tsv&#39;</span> | sort -nr | head -10
+</span></span></code></pre></div></li>
+</ul>
+<h1 id="index">Index</h1>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html">doc</a> ( <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#system-indices">System</a> (<a href="https://github.com/elastic/elasticsearch/issues/50251#issuecomment-1107637953">list</a>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html">Aliases</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html">Mappings</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html">types</a>) (aka. field data types, columns), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html">Data Streams</a> (<a href="https://spinscale.de/posts/2021-07-07-elasticsearch-data-streams-explained.html">blog</a>) )</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html">Create Index</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html">Delete Index</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-close.html">Close Index</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-indices.html">CAT Indices</a> (<code>cat_indices.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html">Index Stats</a> (<code>indices_stats.json</code>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-settings.html">Read Index Settings</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html">Update Index Settings</a>
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-alias.html">CAT Aliases</a> (<code>cat_aliases.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-alias.html">Read Alias</a> (<code>alias.json</code>) , <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-add-alias.html">Update Alias</a>
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.7/indices-get-mapping.html">Read Mappings</a> (<code>mapping.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-fielddata.html">CAT FieldData</a> (<code>cat_fielddata.txt</code>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-data-stream.html">Read DataStream</a> (<code>data_stream.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-stream-stats-api.html">Data Stream Stats</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/indices?v<span style="color:#f92672">=</span>true&amp;s<span style="color:#f92672">=</span>index&amp;expand_wildcards<span style="color:#f92672">=</span>all&amp;h<span style="color:#f92672">=</span>index,status,health,pri,rep,docs*
+</span></span><span style="display:flex;"><span>$ cat cluster_state.json | jq <span style="color:#e6db74">&#39;.metadata.indices|to_entries[]|.value.settings.index as $set|{index:.key,status:.value.state, uuid:$set.uuid, pri:$set.number_of_shards, rep:$set.number_of_replicas, system:.value.system}&#39;</span> <span style="color:#f92672">&amp;&amp;</span> cat indices_stats.json | jq <span style="color:#e6db74">&#39;.indices|to_entries[]|.value as $v|{index:.key,docs_count:$v.primaries.docs.count, docs_deleted:$v.primaries.docs.deleted, store_size:$v.total.store.size, pri_store_size:$v.primaries.store.size}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _settings?human&amp;expand_wildcards<span style="color:#f92672">=</span>all
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; PUT INDEX_NAME/_settings
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;index&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;number_of_replicas&#34;</span>: <span style="color:#ae81ff">0</span> <span style="color:#f92672">}}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _cat/aliases?v<span style="color:#f92672">=</span>true&amp;s<span style="color:#f92672">=</span>alias,index&amp;h<span style="color:#f92672">=</span>alias,index,is_write_index
+</span></span><span style="display:flex;"><span>$ cat aliases.json | jq -r <span style="color:#e6db74">&#39;to_entries[]|select(.value.aliases!={})|{i:.key, a:(.value.aliases)}|.i as $i|.a|to_entries[]|[(if .value.is_write_index then true else false end), .key, $i]|@tsv&#39;</span>
+</span></span><span style="display:flex;"><span>&gt; GET _alias?human
+</span></span><span style="display:flex;"><span>$ cat aliases.json | jq -c <span style="color:#e6db74">&#39;to_entries[]|select(.value.aliases!={})|[.key, (.value.aliases|keys)]&#39;</span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _all/_mapping?expand_wildcards<span style="color:#f92672">=</span>all
+</span></span><span style="display:flex;"><span>&gt; GET _cat/fielddata
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _data_stream?expand_wildcards<span style="color:#f92672">=</span>all
+</span></span><span style="display:flex;"><span>&gt; GET _data_stream/MY_DATASTREAM_NAME/_stats
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li>Empty indices (<code>docs.count:0</code>) taking up space unnecesarily
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat cat_indices.txt | awk <span style="color:#e6db74">&#39;NR==1 || ($7==0)&#39;</span> | awk <span style="color:#e6db74">&#39;{print($3)}&#39;</span> | sort
+</span></span></code></pre></div><ul>
+<li><a href="https://github.com/elastic/elasticsearch/pull/83345">elasticsearch#83345</a>: v8.4.0 stop default ILM rollover for 0 docs</li>
+</ul>
+</li>
+<li><a href="https://github.com/elastic/elasticsearch/pull/93188">elasticsearch#93188</a>: <code>docs.deleted</code> 33% (&lt;8.7.0, 22% ≥8.7.0) of <code>docs</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat cat_indices.txt | grep -v <span style="color:#e6db74">&#39;health&#39;</span> | awk <span style="color:#e6db74">&#39;NR!=1 &amp;&amp; $7 &amp;&amp; $7!=0 &amp;&amp; $8 &amp;&amp; $8!=0&#39;</span> | awk <span style="color:#e6db74">&#39;$8/($7+$8)&gt;0.3&#39;</span> | awk <span style="color:#e6db74">&#39;{print $3}&#39;</span>
+</span></span></code></pre></div></li>
+<li>copying index options
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-split-index.html">Splitting</a> (increase <code>number_of_shards</code>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-split-index.html#how-split-works">how works</a>; * requires more space ECE/ESS as hard-links not supported)</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-clone-index.html">Cloning</a> (same Settings/Mappings and does not apply index templates, <a href="https://stackoverflow.com/a/69268032">more info</a>)</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html">Reindexing</a> (does not copy Index Settings/Mapping)</li>
+<li>Snapshot restore rename</li>
+</ul>
+</li>
+<li>mapping conflicts
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET kbn:api/index_patterns/_fields_for_wildcard?pattern<span style="color:#f92672">=</span>MY_INDEX_PATTERN&amp;meta_fields<span style="color:#f92672">=</span>_source&amp;meta_fields<span style="color:#f92672">=</span>_id&amp;meta_fields<span style="color:#f92672">=</span>_type&amp;meta_fields<span style="color:#f92672">=</span>_index&amp;meta_fields<span style="color:#f92672">=</span>_score
+</span></span><span style="display:flex;"><span>$ cat output.json | jq -r <span style="color:#e6db74">&#39;.fields[]|select(.type==&#34;conflict&#34;)|.name,.conflictDescriptions&#39;</span>
+</span></span></code></pre></div></li>
+<li>high mapping updates show via lots of <code>mergeAndApplyMappings</code> under Node Hot Threads</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-explosion.html">doc</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-settings-limit.html">setting</a>, <a href="https://www.elastic.co/blog/found-crash-elasticsearch#mapping-explosion">example</a>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat mapping.json | jq -c <span style="color:#e6db74">&#39;to_entries[] | .key as $index | [.value.mappings|to_entries[]|{(.key):([.value|..|.type?|select(.!=null)]|length)}] | map(to_entries)|flatten|from_entries | ([to_entries[].value]|add) | { index: $index, field_count: select(.&gt;1000) }&#39;</span> | jq <span style="color:#e6db74">&#39;. | &#34;\(.field_count) \(.index)&#34;&#39;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span>
+</span></span></code></pre></div></li>
+<li>invalid value for existing type <code>mapper_parsing_exception</code></li>
+</ul>
+<h2 id="templates">Templates</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html">doc</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-templates.html">CAT Templates</a> (<code>cat_templates.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.11/indices-get-template.html">List Index Templates</a> (<code>index_templates.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.11/indices-get-template-v1.html">List Legacy Templates</a> (<code>templates.json</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.11/getting-component-templates.html">List Components</a> (<code>component_templates.json</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/templates?v&amp;s<span style="color:#f92672">=</span>t,n
+</span></span><span style="display:flex;"><span>$ jq -nc <span style="color:#e6db74">&#39;input|to_entries|map_values(.value+{name:.key}) as $lt|input.index_templates as $t|($t+$lt)[]|{rank:(.order+.index_template.priority),name:.name,pattern:(.index_patterns+.index_template.index_patterns)}&#39;</span> templates.json index_templates.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _index_template
+</span></span><span style="display:flex;"><span>&gt; GET _template <span style="color:#75715e"># legacy</span>
+</span></span></code></pre></div><h2 id="shard">Shard</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html">doc</a> ( <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html">segments</a> ( <a href="https://blog.mikemccandless.com/2011/02/visualizing-lucenes-segment-merges.html">blog</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/guide/2.x/translog.html">translog</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indexing-buffer.html">buffer</a>) )</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-shards.html">CAT Shards</a> (<code>cat_shards.txt</code>)
+, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-segments.html">CAT Segments</a> (<code>cat_segments.txt</code>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-segments.html">Read Segments</a> (<code>segments.json</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _cat/shards?v&amp;h<span style="color:#f92672">=</span>s,pr,st,n,i
+</span></span><span style="display:flex;"><span>&gt; GET _cluster/state/routing_table?filter_path<span style="color:#f92672">=</span>routing_table.indices.*.shards.*.unassigned_info
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># box.unassigned</span>
+</span></span><span style="display:flex;"><span>$ cat cluster_state.json | jq -rc <span style="color:#e6db74">&#39;.routing_table.indices|to_entries[]|.key as $i|.value.shards|to_entries[]|.key as $s|.value[] as $v|select($v.state==&#34;UNASSIGNED&#34;)|[$v.primary, $s, $i, $v.unassigned_info.allocation_status, $v.unassigned_info.reason, $v.recovery_source.type]|@tsv&#39;</span> | sort -r | column -t | head
+</span></span><span style="display:flex;"><span>$ jq -c <span style="color:#e6db74">&#39;.routing_table.indices[].shards[][]|select(.state != &#34;STARTED&#34;)|{reason: .unassigned_info.details, shard, primary, index}&#39;</span> cluster_state.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _cat/segments?v&amp;s<span style="color:#f92672">=</span>i,s,seg&amp;h<span style="color:#f92672">=</span>i,s,pr,seg,g,docs.*,ic,is,v
+</span></span><span style="display:flex;"><span>&gt; GET INDEX_NAME/_segments
+</span></span><span style="display:flex;"><span>$ cat segments.json | jq <span style="color:#e6db74">&#39;.indices|to_entries[]|.key as $i|.value.shards|to_entries[]|.key as $sh|.value[]|. as $v|.segments|to_entries[]|.key as $se|{index:$i, shard:$sh, primary:$v.routing.primary, segments:$se, status:$v.routing.state, generation:.value.generation, docs_count:.value.num_docs, docs_deleted:.value.deleted_docs, size:.value.size, committed:.value.committed, searchable:.value.search, version:.value.version, compound:.value.compound}&#39;</span>
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html#shard-size-recommendation">doc</a>: size 10-50GB</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/size-your-shards.html">doc</a>: oversharding</li>
+</ul>
+<h2 id="ilm">ILM</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html">doc</a> (<a href="https://www.elastic.co/guide/en/cloud/current/ec-configure-index-management.html">config</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.2/getting-started-index-lifecycle-management.html#ilm-gs-alias-bootstrap">bootstrap</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-with-existing-indices.html">existing</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-error-handling.html">troubleshoot</a>), <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-index-lifecycle.html">phases</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-index-lifecycle.html#ilm-phase-actions">actions</a>, <a href="https://gist.github.com/stefnestor/9dc1b28fa86ccc6a9a54c3f4041a0cb6">steps order</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html">Status</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html">Explain</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html">Create/Replace Policy</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html">Read Policy</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-remove-policy.html">Remove</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-move-to-step.html">Move Step</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html">Start</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html">Stop</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-retry-policy.html">Retry</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _ilm/status
+</span></span><span style="display:flex;"><span>&gt; GET _ilm/policy
+</span></span><span style="display:flex;"><span>&gt; POST _all/_ilm/retry
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET _all/_ilm/explain
+</span></span><span style="display:flex;"><span>&gt; GET _all/_ilm/explain?only_errors<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>$ cat cluster_state.json | jq <span style="color:#e6db74">&#39;.metadata.index_lifecycle.policies&#39;</span> 
+</span></span><span style="display:flex;"><span>$ cat cluster_state.json | jq <span style="color:#e6db74">&#39;.metadata.indices|to_entries[]|{index:.key, explain:.value.ilm}&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># common</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## not waiting on timing event</span>
+</span></span><span style="display:flex;"><span>$ cat ilm_explain.json | jq -c <span style="color:#e6db74">&#39;.indices[]|select(.managed==true and .action!=&#34;complete&#34; and .step!=&#34;check-rollover-ready&#34;)|{phase,action,step,policy,index}&#39;</span> | sort
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## ⭐ I&#39;m usually looking for this one</span>
+</span></span><span style="display:flex;"><span>$ cat ilm_explain.json | jq -c <span style="color:#e6db74">&#39;.indices[]|select(.managed==true)|.phase+&#34;/&#34;+.action+&#34;/&#34;+.step&#39;</span> | sort | uniq -c | sort -r
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## ^ samesies but filtered to transient</span>
+</span></span><span style="display:flex;"><span>$ cat ilm_explain.json | jq -c <span style="color:#e6db74">&#39;.indices[]|select(.managed==true and (.action!=&#34;complete&#34; or .phase==&#34;new&#34;) and .step!=&#34;check-rollover-ready&#34;)|.phase+&#34;/&#34;+.action+&#34;/&#34;+.step&#39;</span> | sort | uniq -c | sort -r
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li><a href="https://www.elastic.co/blog/troubleshooting-elasticsearch-ilm-common-issues-and-fixes">blog</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-error-handling.html">doc</a> most common errors</li>
+<li><code>step […] for index […] with policy […] does not exist</code> somehow missed step, use ILM Move Step to necessary step</li>
+<li>policy not match cache policy
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat ilm_explain.json | jq -r <span style="color:#e6db74">&#39;.indices[]|select(.managed==true)|select(.policy != .phase_execution.policy)&#39;</span>
+</span></span></code></pre></div></li>
+<li>missing cache
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat ilm_explain.json | jq <span style="color:#e6db74">&#39;.indices[]|select(.managed==true and (.phase|not))|.index&#39;</span>
+</span></span></code></pre></div></li>
+<li>erring or not-sure-not-erring ( <a href="https://github.com/elastic/elasticsearch/issues/99030">elasticsearch#99030</a> )
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat ilm_explain.json | jq -rc <span style="color:#e6db74">&#39;.indices[]|select(.managed==true)|select((.step|not) or .step==&#34;ERROR&#34;) | .index&#39;</span>
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="ingest">Ingest</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-replication.html#basic-write-model">doc</a> ( <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest.html">Ingest Pipelines</a> )</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs.html">Index Doc</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html">Bulk</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/get-pipeline-api.html">Read Ingest Pipelines</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/simulate-pipeline-api.html">Simulate Ingest Pipeline</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; POST MY_INDEX_NAME/_doc 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;key&#34;</span>: <span style="color:#e6db74">&#34;value&#34;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; POST _bulk
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;index&#34;</span> : <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;_index&#34;</span> : <span style="color:#e6db74">&#34;MY_INDEX_NAME&#34;</span>, <span style="color:#e6db74">&#34;_id&#34;</span> : <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;key&#34;</span> : <span style="color:#e6db74">&#34;value&#34;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add ingested timestamp</span>
+</span></span><span style="display:flex;"><span>&gt; PUT _ingest/pipeline/add_indexed_timestamp
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;createdAt, not updatedAt&#34;</span>, <span style="color:#e6db74">&#34;processors&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;set&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;_source.indexed_at&#34;</span>, <span style="color:#e6db74">&#34;value&#34;</span>: <span style="color:#e6db74">&#34;{{_ingest.timestamp}}&#34;</span>, <span style="color:#e6db74">&#34;override&#34;</span>: false <span style="color:#f92672">}</span> <span style="color:#f92672">}</span> <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li>failed ingest
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat indices_stats.json | jq -rc <span style="color:#e6db74">&#39;.indices|to_entries[]|.value.primaries.indexing as $i | select($i.index_total&gt;100) | select($i.index_failed &gt; 100) | { index: .key, failed_percent:(100*$i.index_failed/$i.index_total|round), failed_count:$i.index_failed }&#39;</span>
+</span></span></code></pre></div></li>
+<li>high indexing duration
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat indices_stats.json | jq -r <span style="color:#e6db74">&#39;[.indices | to_entries[] | select(.value.primaries.indexing.index_total&gt;100) | select((.value.primaries.indexing.index_time_in_millis/.value.primaries.indexing.index_total) &gt; 1) | { &#34;key&#34;: .key, &#34;value&#34;: (.value.primaries.indexing.index_time_in_millis/.value.primaries.indexing.index_total) }] | from_entries&#39;</span>
+</span></span></code></pre></div></li>
+<li>ingest pipelines&rsquo; failed_percent and total
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat nodes_stats.json | jq -c <span style="color:#e6db74">&#39;.nodes[]|.name as $node|.ingest.pipelines|to_entries[]|.key as $pipeline| .value.processors[] | to_entries[]|.key as $process| { pipeline:$pipeline, process:$process, node:$node, total:.value.stats.count, failed:.value.stats.failed, failed_percent:(try (100*.value.stats.failed/.value.stats.count|round) catch 0)}|select(.total&gt;0 and .failed_percent&gt;10)&#39;</span> | head
+</span></span></code></pre></div></li>
+</ul>
+<h1 id="watcher">Watcher</h1>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-alerting.html">ES doc</a>, <a href="https://www.elastic.co/guide/en/kibana/current/watcher-ui.html">KB doc</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api.html">api</a> (<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/notification-settings.html">settings</a>)</p>
+<p>indices:</p>
+<ul>
+<li><code>.watches</code>: config (service runs from nodes hosting shards)</li>
+<li><code>.triggered_watches</code>: current active</li>
+<li><code>.watcher-history*</code> historic/logging</li>
+</ul>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html">Read Watches</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html">Read Watcher Stats</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html">Execute</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET _watcher/watch
+</span></span><span style="display:flex;"><span>&gt; GET _watcher/stats
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># … watch_id will come through as _inline_</span>
+</span></span><span style="display:flex;"><span>&gt; POST _watch/watch/WATCH_NAME/_execute
+</span></span></code></pre></div><p><strong>Problem Box</strong></p>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/actions-webhook.html">doc</a> action webhook
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># debug webhooks - will emit passwords!</span>
+</span></span><span style="display:flex;"><span>&gt; PUT _cluster/settings
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;transient&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;logger.org.apache.http&#34;</span> : <span style="color:#e6db74">&#34;DEBUG&#34;</span><span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div></li>
+<li>long durations
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; GET .watcher-history*/_search?pretty
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;query&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;bool&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;filter&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;range&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;result.execution_time&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;gte&#34;</span>:<span style="color:#e6db74">&#34;now/d-1d&#34;</span><span style="color:#f92672">}}}]}}</span>,<span style="color:#e6db74">&#34;size&#34;</span>:0,<span style="color:#e6db74">&#34;aggs&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;watch_id&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;terms&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>:<span style="color:#e6db74">&#34;watch_id&#34;</span>,<span style="color:#e6db74">&#34;size&#34;</span>:10<span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;aggs&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>:<span style="color:#e6db74">&#34;result.execution_duration&#34;</span><span style="color:#f92672">}}</span>,<span style="color:#e6db74">&#34;avg&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;avg&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>:<span style="color:#e6db74">&#34;result.execution_duration&#34;</span><span style="color:#f92672">}}}}}}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; GET .watcher-history*/_search?pretty 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;query&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;bool&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;filter&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;range&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;result.execution_time&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;gte&#34;</span>:<span style="color:#e6db74">&#34;now/d-1d&#34;</span><span style="color:#f92672">}}}]}}</span>,<span style="color:#e6db74">&#34;size&#34;</span>:0,<span style="color:#e6db74">&#34;aggs&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;watch_id&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;terms&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>:<span style="color:#e6db74">&#34;watch_id&#34;</span>,<span style="color:#e6db74">&#34;size&#34;</span>:10<span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;aggs&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;max_duration&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>:<span style="color:#e6db74">&#34;result.execution_duration&#34;</span><span style="color:#f92672">}}</span>,<span style="color:#e6db74">&#34;avg_duration&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;avg&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;field&#34;</span>:<span style="color:#e6db74">&#34;result.execution_duration&#34;</span><span style="color:#f92672">}}</span>,<span style="color:#e6db74">&#34;bucket_sort&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;bucket_sort&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;sort&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;max_duration&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;order&#34;</span>:<span style="color:#e6db74">&#34;desc&#34;</span><span style="color:#f92672">}}]}}</span>,<span style="color:#e6db74">&#34;top_hits&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;top_hits&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;size&#34;</span>:1,<span style="color:#e6db74">&#34;sort&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;result.execution_time&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;order&#34;</span>:<span style="color:#e6db74">&#34;desc&#34;</span><span style="color:#f92672">}}]</span>,<span style="color:#e6db74">&#34;_source&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;includes&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;metadata.*&#34;</span><span style="color:#f92672">]}}}}}}}</span> 
+</span></span></code></pre></div></li>
+</ul>
+
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    <svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="topFunction()" title="Go to top">
+        
+        <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/>
+    </svg>
+    
+    <script>
+        let backToTopButton = document.getElementById("btt-button");
+
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            smoothScrollToTop();
+        }
+
+        function smoothScrollToTop() {
+            const scrollToTop = () => {
+                const c = document.documentElement.scrollTop || document.body.scrollTop;
+                if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                }
+            };
+            scrollToTop();
+        }
+    </script>
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#nodes">Nodes</a>
+      <ul>
+        <li><a href="#installupgrade">Install/Upgrade</a></li>
+        <li><a href="#snapshot-repository">Snapshot Repository</a></li>
+        <li><a href="#security">Security</a></li>
+      </ul>
+    </li>
+    <li><a href="#cluster">Cluster</a>
+      <ul>
+        <li><a href="#discoverymaster">Discovery/Master</a></li>
+        <li><a href="#allocation">Allocation</a></li>
+      </ul>
+    </li>
+    <li><a href="#tasks">Tasks</a>
+      <ul>
+        <li><a href="#cluster-1">Cluster</a></li>
+        <li><a href="#threadpools">ThreadPools</a></li>
+        <li><a href="#node">Node</a></li>
+      </ul>
+    </li>
+    <li><a href="#index">Index</a>
+      <ul>
+        <li><a href="#templates">Templates</a></li>
+        <li><a href="#shard">Shard</a></li>
+        <li><a href="#ilm">ILM</a></li>
+        <li><a href="#ingest">Ingest</a></li>
+      </ul>
+    </li>
+    <li><a href="#watcher">Watcher</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+    <span>&copy; 2023 © 2023 Stef Nestor</span>
+    
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/526avijitgupta/gokarna">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

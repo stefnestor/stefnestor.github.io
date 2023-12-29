@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Bash Report Append</title>
+    <meta name="description" content="">
+    <meta name="keywords" content='bash, analysis, jq'>
+
+    <meta property="og:url" content="https://example.org/labs/bash-report-append/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bash Report Append">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://example.org/">
+    <meta property="og:image:secure_url" content="https://example.org/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bash Report Append">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="https://example.org/labs/bash-report-append/">
+    <meta property="twitter:url" content="https://example.org/labs/bash-report-append/">
+    <meta name="twitter:image" content="https://example.org/">
+
+    
+    <link rel="canonical" href="https://example.org/labs/bash-report-append/" />
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.27043ee3e4fae9fba993230b5c2ba193e1f265beeea9c49a69d028f72b22ccb5.js" integrity="sha256-JwQ&#43;4&#43;T66fupkyMLXCuhk&#43;HyZb7uqcSaadAo9ysizLU="></script>
+
+    
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://example.org/">🦖</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://example.org/labs/"> labs </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://example.org/cache/"> cache </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://example.org/tags/"> tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://example.org/labs/"> labs </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://example.org/cache/"> cache </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://example.org/tags/"> tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Bash Report Append</h1>
+        <small role="doc-subtitle"></small>
+        <p class="post-date">June 27, 2022
+        
+        </p>
+
+        <ul class="post-tags">
+        
+            <li class="post-tag"><a href="https://example.org/tags/bash">bash</a></li>
+        
+            <li class="post-tag"><a href="https://example.org/tags/analysis">analysis</a></li>
+        
+            <li class="post-tag"><a href="https://example.org/tags/jq">jq</a></li>
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            <p><strong>GOAL</strong>: Forward console research (command and output) into notes to
+reduce report write-up time.</p>
+<h2 id="a---lab">A - Lab</h2>
+<h3 id="1-code">1. code</h3>
+<p>Note: This is more complex than your normal google results of &ldquo;add output
+to file&rdquo; because we want to also capture the generating command.</p>
+<p>Preferably, you&rsquo;ll add the following into your <code>.bash_profile</code> or bash
+dotfiles to be able to access this <code>append</code> command from any session.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">### to use</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. execute random command</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. run: append &#34;!!&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    - will capture very last within session</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    - !! must be in quotes to parse bash pipes, etc</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> append <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -z $NOTE <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;👻 not saved; set NOTE &amp; repeat&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$*<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    FILEa<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/Users/stef/downloads&#39;</span>/$NOTE<span style="color:#e6db74">&#39;.md&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    echo &gt;&gt; $FILEa
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;\`\`\`&#34;</span> &gt;&gt; $FILEa
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;</span>$<span style="color:#e6db74"> #&#34;</span> <span style="color:#66d9ef">$(</span>date +%Y%m%d-%H%M%S<span style="color:#66d9ef">)</span> &gt;&gt; $FILEa
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;</span>$<span style="color:#e6db74"> &#34;</span>$input &gt;&gt; $FILEa
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>eval $input<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> &gt;&gt; $FILEa
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;\`\`\`&#34;</span> &gt;&gt; $FILEa
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>This is purposely written to respect Bash piping (allows you to use <code>jq</code>,
+<code>grep</code>, etc) while maintaining output formatting when it appends into
+file.</p>
+<h3 id="2-run">2. run</h3>
+<p>If you added to dotfiles, you can run <code>append</code> from any console Bash
+session/directory. (May require restarting your console.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Last login: Mon Jun <span style="color:#ae81ff">27</span> 11:59:23 on ttys000
+</span></span><span style="display:flex;"><span>$ pwd
+</span></span><span style="display:flex;"><span>/Users/stef/Documents
+</span></span><span style="display:flex;"><span>$
+</span></span><span style="display:flex;"><span>$ NOTE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;TMP&#34;</span>
+</span></span><span style="display:flex;"><span>$ echo <span style="color:#e6db74">&#34;stef&#34;</span>
+</span></span><span style="display:flex;"><span>stef
+</span></span><span style="display:flex;"><span>$ append <span style="color:#e6db74">&#34;!!&#34;</span>
+</span></span><span style="display:flex;"><span>append <span style="color:#e6db74">&#34;echo &#34;</span>stef<span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>$
+</span></span><span style="display:flex;"><span>$ cd /Users/stef/Downloads
+</span></span><span style="display:flex;"><span>$ ls | grep TMP
+</span></span><span style="display:flex;"><span>TMP.md
+</span></span></code></pre></div><h3 id="3-result">3. result</h3>
+<p>The <code>TMP.md</code> (file was auto-created-as-needed and) appended</p>
+<pre tabindex="0"><code>```
+$ # 20220627-120212
+$ echo stef
+stef
+```
+</code></pre><p>As a Mardown file, this will render</p>
+<blockquote>
+<pre tabindex="0"><code>$ # 20220627-120212
+$ echo stef
+stef
+</code></pre></blockquote>
+<hr>
+<h2 id="b---use-case">B - Use Case</h2>
+<p>I use <a href="https://obsidian.md/">Obsidian</a> for my notes which lets you wiki
+embed sub-Markdown-pages. I work on Elasticsearch Database Administration.</p>
+<p><a href="https://cloud.elastic.co">Elastic Cloud</a> lets
+you maintain your &ldquo;deployment&rdquo; via
+<a href="https://www.elastic.co/guide/en/cloud/current/ec-restful-api.html">their API</a>.
+You can also capture a point-in-time cluster view via an Elasticsearch
+<a href="https://github.com/elastic/support-diagnostics#usage-examples">diagnostic</a>.</p>
+<h3 id="1-ess-api">1. ess api</h3>
+<p>You can setup your Bash dotfiles to quick cURL your ESS/ECE deployment&rsquo;s
+<a href="https://www.elastic.co/guide/en/cloud/current/ec-api-console.html">ES API Console</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">### to use</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. setup console variable: ELASTIC_ECE_KEY</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. run ess $DEPLOYMENT_ID $REQUEST_PATH</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> ess <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  AUTH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Authorization: APIKey </span><span style="color:#e6db74">${</span>ELASTIC_ECE_KEY<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  MGMNT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;X-Management-Request: true&#34;</span>
+</span></span><span style="display:flex;"><span>  DOMAIN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://adminconsole.found.no/api/v1/deployments/</span>$1<span style="color:#e6db74">/elasticsearch/&#34;</span>
+</span></span><span style="display:flex;"><span>  optA<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;main-elasticsearch/&#34;</span>
+</span></span><span style="display:flex;"><span>  optB<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;elasticsearch/&#34;</span>
+</span></span><span style="display:flex;"><span>  URI_END<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;proxy/&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -z <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span> URI<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>; <span style="color:#66d9ef">else</span> URI<span style="color:#f92672">=</span>$2; <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> URI !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span> URI_END<span style="color:#f92672">+=</span>$2; <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>  response<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -s -XGET -H <span style="color:#e6db74">&#34;</span>$AUTH<span style="color:#e6db74">&#34;</span> -H <span style="color:#e6db74">&#34;</span>$MGMNT<span style="color:#e6db74">&#34;</span> $DOMAIN$optA$URI_END<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $response <span style="color:#f92672">==</span> *<span style="color:#e6db74">&#34;resource_not_found&#34;</span>* <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    response<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -s -XGET -H <span style="color:#e6db74">&#34;</span>$AUTH<span style="color:#e6db74">&#34;</span> -H <span style="color:#e6db74">&#34;</span>$MGMNT<span style="color:#e6db74">&#34;</span> $DOMAIN$optB$URI_END<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>  echo $response
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Your simplified deployment&rsquo;s Elasticsearch cURL can now be ran in
+console, e.g.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ess e406cfd66dc944119bd8da2bb7290d2b _cluster/health?filter_path<span style="color:#f92672">=</span>status
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;status&#34;</span>:<span style="color:#e6db74">&#34;yellow&#34;</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="2-investigate">2. investigate</h3>
+<p>Let&rsquo;s say I&rsquo;ve received an alert that my cluster&rsquo;s <code>status:yellow</code>.
+JSON filtering done via <a href="https://stedolan.github.io/jq/manual">JQ</a>. I&rsquo;ll
+grab a diagnostic to capture my point-in-time situation. Then confirm:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ NOTE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;my_report&#34;</span>
+</span></span><span style="display:flex;"><span>$ where
+</span></span><span style="display:flex;"><span>/Users/stef/downloads/diag
+</span></span><span style="display:flex;"><span>$ append <span style="color:#e6db74">&#34;!!&#34;</span>
+</span></span><span style="display:flex;"><span>$ cat cluster_health.json | jq <span style="color:#e6db74">&#39;.status&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;yellow&#34;</span>
+</span></span></code></pre></div><p>My <a href="https://github.com/stefnestor/elastic/blob/main/Elasticsearch/Index/Shard/Allocation/allocation%20cheatsheet.pdf">Allocation Cheatsheet</a>
+suggests we need to check if we&rsquo;re currently assigning/recovering shards.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat cluster_health.json | jq <span style="color:#e6db74">&#39;{status,number_of_nodes,active_shards,unassigned_shards,active_shards_percent_as_number,relocating_shards,initializing_shards,delayed_unassigned_shards}&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;yellow&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;number_of_nodes&#34;</span>: 2,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;active_shards&#34;</span>: 92,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;unassigned_shards&#34;</span>: 3,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;active_shards_percent_as_number&#34;</span>: 96.84210526315789,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;relocating_shards&#34;</span>: 0,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;initializing_shards&#34;</span>: 0,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;delayed_unassigned_shards&#34;</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>$ append <span style="color:#e6db74">&#34;!!&#34;</span>
+</span></span></code></pre></div><p>We are not, so following cheatsheet, we&rsquo;ll kick off a
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.html">Cluster Reroute</a>.
+After 5min, I run <code>ess</code> to poll
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html">Cluster Health</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ess e406cfd66dc944119bd8da2bb7290d2b _cluster/health | jq <span style="color:#e6db74">&#39;{status,number_of_nodes,active_shards,unassigned_shards,active_shards_percent_as_number,relocating_shards,initializing_shards,delayed_unassigned_shards}&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;yellow&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;number_of_nodes&#34;</span>: 2,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;active_shards&#34;</span>: 92,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;unassigned_shards&#34;</span>: 3,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;active_shards_percent_as_number&#34;</span>: 96.84210526315789,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;relocating_shards&#34;</span>: 0,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;initializing_shards&#34;</span>: 0,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;delayed_unassigned_shards&#34;</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>$ append <span style="color:#e6db74">&#34;!!&#34;</span>
+</span></span></code></pre></div><p>We&rsquo;re unchanged. This suggests a non-transient issue&rsquo;s at play. We
+continue to use the cheatsheet and
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html">Elasticsearch docs</a>
+to investigate.</p>
+<p>Where Elasticsearch&rsquo;s recovery and ILM processes can poll at &lt;10min
+intervals, I frequently work with clients on transient issues. This is
+why my research=&gt;report integration automatically tracks the time added.</p>
+<p>For internal tracking, I usually leave the file in its raw format:</p>
+<p><img src="/2022-06-27-bash-append-research-to-report-A.png" alt=""></p>
+<h3 id="3-result-1">3. result</h3>
+<p>If a client is requesting an RCA, I&rsquo;ll manually add in quotes
+(previously written notes summarizing various Elastic concepts) to flush
+out the why/how we progressed through our investigation:</p>
+<p><img src="/2022-06-27-bash-append-research-to-report-B.png" alt="report with annotations"></p>
+<p>This exports as a ready-to-go PDF.</p>
+<p><img src="/2022-06-27-bash-append-research-to-report-C.png" alt="frontend report"></p>
+<p>Note: For an actual RCA, I&rsquo;ll write-up an executive abstract at the top
+and flush out the stream-of-concious investigation below. The second
+part&rsquo;s not required but helps me teach my clients to reduce their
+dependency on me.</p>
+<h2 id="c---review">C - Review</h2>
+<p>Happy so far. Future wants:</p>
+<ul>
+<li><a href="http://lnav.org">LNAV</a> (console log viewer) allows you to filter columns and not just rows which&rsquo;d be very helpful for reports.</li>
+<li>Obsidian&rsquo;s <a href="https://github.com/coddingtonbear/obsidian-local-rest-api">Local Rest API</a> let&rsquo;s you API query your notes which&rsquo;d be helpful to automate diagnostic/log investigation to known issues.</li>
+<li>I&rsquo;ve figured out how to use Python + Obsidian&rsquo;s <a href="https://github.com/zsviczian/obsidian-excalidraw-plugin">Excalidraw</a> to transition visual diagrams into investigation paths. I need to figure out how to bring this into play to automate writing the report.</li>
+</ul>
+
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    <svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="topFunction()" title="Go to top">
+        
+        <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/>
+    </svg>
+    
+    <script>
+        let backToTopButton = document.getElementById("btt-button");
+
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            smoothScrollToTop();
+        }
+
+        function smoothScrollToTop() {
+            const scrollToTop = () => {
+                const c = document.documentElement.scrollTop || document.body.scrollTop;
+                if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                }
+            };
+            scrollToTop();
+        }
+    </script>
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#a---lab">A - Lab</a>
+          <ul>
+            <li><a href="#1-code">1. code</a></li>
+            <li><a href="#2-run">2. run</a></li>
+            <li><a href="#3-result">3. result</a></li>
+          </ul>
+        </li>
+        <li><a href="#b---use-case">B - Use Case</a>
+          <ul>
+            <li><a href="#1-ess-api">1. ess api</a></li>
+            <li><a href="#2-investigate">2. investigate</a></li>
+            <li><a href="#3-result-1">3. result</a></li>
+          </ul>
+        </li>
+        <li><a href="#c---review">C - Review</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+    <span>&copy; 2023 © 2023 Stef Nestor</span>
+    
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/526avijitgupta/gokarna">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

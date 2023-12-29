@@ -1,0 +1,50 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = '🦖'
+theme = 'gokarna'
+
+enableRobotsTXT = true
+
+[menu]
+
+  [[menu.main]]
+    identifier = "labs"
+    name = "labs"
+    post = ""
+    pre = ""
+    url = "/labs/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "cache"
+    name = "cache"
+    post = ""
+    pre = ""
+    url = "/cache/"
+    weight = 2
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "tags"
+    url = "/tags/"
+    weight = 3
+    
+  [[menu.main]]
+    identifier = "github"
+    pre = "<span data-feather='github'></span>"
+    url = "https://github.com/stefnestor/"
+    weight = 4
+    [menu.main.params]
+      newPage = true
+
+[params]
+  accentColor = "#FF4D4D"
+  ShowBackToTopButton = true
+  showPostsOnHomePage = "recent"
+  footer = "© 2023 Stef Nestor"
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 3
+    ordered = false
