@@ -2,45 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.org/tags/analysis/</loc>
+    <loc>https://stefnestor.github.io/tags/analysis/</loc>
     <lastmod>2022-06-27T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/bash/</loc>
+    <loc>https://stefnestor.github.io/tags/bash/</loc>
     <lastmod>2022-06-27T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/labs/bash-report-append/</loc>
+    <loc>https://stefnestor.github.io/labs/bash-report-append/</loc>
     <lastmod>2022-06-27T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/jq/</loc>
+    <loc>https://stefnestor.github.io/tags/jq/</loc>
     <lastmod>2022-06-27T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/labs/</loc>
+    <loc>https://stefnestor.github.io/labs/</loc>
     <lastmod>2022-06-27T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/</loc>
+    <loc>https://stefnestor.github.io/tags/</loc>
     <lastmod>2022-06-27T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/</loc>
+    <loc>https://stefnestor.github.io/</loc>
     <lastmod>2022-06-27T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/cache/</loc>
+    <loc>https://stefnestor.github.io/cache/</loc>
     <lastmod>2022-04-08T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/elastic/</loc>
+    <loc>https://stefnestor.github.io/tags/elastic/</loc>
     <lastmod>2022-04-08T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/kibana/</loc>
+    <loc>https://stefnestor.github.io/tags/kibana/</loc>
     <lastmod>2022-04-08T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/cache/kibana-outline/</loc>
+    <loc>https://stefnestor.github.io/cache/kibana-outline/</loc>
     <lastmod>2022-04-08T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/elasticsearch/</loc>
+    <loc>https://stefnestor.github.io/tags/elasticsearch/</loc>
     <lastmod>2022-04-03T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/cache/elasticsearch-outline/</loc>
+    <loc>https://stefnestor.github.io/cache/elasticsearch-outline/</loc>
     <lastmod>2022-04-03T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://example.org/categories/</loc>
+    <loc>https://stefnestor.github.io/categories/</loc>
   </url>
 </urlset>

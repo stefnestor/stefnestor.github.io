@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>🦖</title>
-    <link>https://example.org/</link>
+    <link>https://stefnestor.github.io/</link>
     <description>Recent content on 🦖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 27 Jun 2022 12:00:00 -0700</lastBuildDate>
-    <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://stefnestor.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bash Report Append</title>
-      <link>https://example.org/labs/bash-report-append/</link>
+      <link>https://stefnestor.github.io/labs/bash-report-append/</link>
       <pubDate>Mon, 27 Jun 2022 12:00:00 -0700</pubDate>
-      <guid>https://example.org/labs/bash-report-append/</guid>
+      <guid>https://stefnestor.github.io/labs/bash-report-append/</guid>
       <description>GOAL: Forward console research (command and output) into notes to reduce report write-up time.&#xA;A - Lab 1. code Note: This is more complex than your normal google results of &amp;ldquo;add output to file&amp;rdquo; because we want to also capture the generating command.&#xA;Preferably, you&amp;rsquo;ll add the following into your .bash_profile or bash dotfiles to be able to access this append command from any session.&#xA;### to use # 1. execute random command # 2.</description>
     </item>
     <item>
       <title>Kibana Outline</title>
-      <link>https://example.org/cache/kibana-outline/</link>
+      <link>https://stefnestor.github.io/cache/kibana-outline/</link>
       <pubDate>Fri, 08 Apr 2022 12:00:00 -0700</pubDate>
-      <guid>https://example.org/cache/kibana-outline/</guid>
+      <guid>https://stefnestor.github.io/cache/kibana-outline/</guid>
       <description>This Kibana outline is purposely narrowed to topics/APIs most relevant to performance/outage troubleshooting.&#xA;doc , api , code , diagnostic (code) , logs (configure, examples) , Event Log (code, .kibana-event-log-*)&#xA;Problem Box&#xA;doc: debug logs ( logging.verbose:true in 7.x ; logging.root.level:debug in 8.x ) support-diagnostics#578: diagnostic only pulls space:default blog: health, performance issues Most features run from the Elasticsearch service; however a handful of features run from Kibana: Telemetry, Rules (w/associated Actions), Reporting, &amp;amp; Sessions.</description>
     </item>
     <item>
       <title>Elasticsearch Outline</title>
-      <link>https://example.org/cache/elasticsearch-outline/</link>
+      <link>https://stefnestor.github.io/cache/elasticsearch-outline/</link>
       <pubDate>Sun, 03 Apr 2022 12:00:00 -0700</pubDate>
-      <guid>https://example.org/cache/elasticsearch-outline/</guid>
+      <guid>https://stefnestor.github.io/cache/elasticsearch-outline/</guid>
       <description>This Elasticsearch outline is purposely narrowed to topics/APIs most relevant to performance/outage troubleshooting.&#xA;It correlates to USE Method for Elasticsearch. See related PDF.&#xA;doc , api , code , diagnostic (code) , logs (loggers, audit, slow logs)&#xA;Problem Box&#xA;diagnostic errors Error: Could not find or load main class com.elastic.support.diagnostics.DiagnosticApp downloaded source instead of zip from releases Could not retrieve the Elasticsearch version due to a system or network error - unable to continue.</description>
     </item>
   </channel>

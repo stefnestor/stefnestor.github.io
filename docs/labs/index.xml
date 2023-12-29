@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Labs on 🦖</title>
-    <link>https://example.org/labs/</link>
+    <link>https://stefnestor.github.io/labs/</link>
     <description>Recent content in Labs on 🦖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 27 Jun 2022 12:00:00 -0700</lastBuildDate>
-    <atom:link href="https://example.org/labs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://stefnestor.github.io/labs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bash Report Append</title>
-      <link>https://example.org/labs/bash-report-append/</link>
+      <link>https://stefnestor.github.io/labs/bash-report-append/</link>
       <pubDate>Mon, 27 Jun 2022 12:00:00 -0700</pubDate>
-      <guid>https://example.org/labs/bash-report-append/</guid>
+      <guid>https://stefnestor.github.io/labs/bash-report-append/</guid>
       <description>GOAL: Forward console research (command and output) into notes to reduce report write-up time.&#xA;A - Lab 1. code Note: This is more complex than your normal google results of &amp;ldquo;add output to file&amp;rdquo; because we want to also capture the generating command.&#xA;Preferably, you&amp;rsquo;ll add the following into your .bash_profile or bash dotfiles to be able to access this append command from any session.&#xA;### to use # 1. execute random command # 2.</description>
     </item>
   </channel>
