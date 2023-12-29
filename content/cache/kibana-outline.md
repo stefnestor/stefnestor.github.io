@@ -63,6 +63,7 @@ $ cat kibana_task_manager_health.json | jq -rc '{overall:.status, capacity:.stat
 [doc](https://www.elastic.co/guide/en/kibana/current/setup.html)
 
 **Problem Box**
+- [doc](https://www.elastic.co/guide/en/kibana/current/access.html#not-ready): `Kibana Server is not Ready yet`
 - `Unable to retrieve version information from Elasticsearch nodes.` either a) need `ELASTICSEARCH_HOSTS`, b) wrong username/password
 - `server.publicBaseUrl is missing and should be configured when running in a production environment. Some features may not behave correctly. See the documentation.` v7.14.0 [kibana#109970](https://github.com/elastic/kibana/issues/109970) 
 
