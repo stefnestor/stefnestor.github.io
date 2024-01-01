@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Convert Elastic Units</title>
+    <meta name="description" content="">
+    <meta name="keywords" content='elastic, python, bash, analysis, elasticsearch'>
+
+    <meta property="og:url" content="https://stefnestor.github.io/labs/convert-elastic-units/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Convert Elastic Units">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://stefnestor.github.io/">
+    <meta property="og:image:secure_url" content="https://stefnestor.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convert Elastic Units">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="https://stefnestor.github.io/labs/convert-elastic-units/">
+    <meta property="twitter:url" content="https://stefnestor.github.io/labs/convert-elastic-units/">
+    <meta name="twitter:image" content="https://stefnestor.github.io/">
+
+    
+    <link rel="canonical" href="https://stefnestor.github.io/labs/convert-elastic-units/" />
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.27043ee3e4fae9fba993230b5c2ba193e1f265beeea9c49a69d028f72b22ccb5.js" integrity="sha256-JwQ&#43;4&#43;T66fupkyMLXCuhk&#43;HyZb7uqcSaadAo9ysizLU="></script>
+
+    
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://stefnestor.github.io/">🦖</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/labs/"> labs </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/cache/"> cache </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/tags/"> tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/labs/"> labs </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/cache/"> cache </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/tags/"> tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Convert Elastic Units</h1>
+        <small role="doc-subtitle"></small>
+        <p class="post-date">January 1, 2024
+        
+        </p>
+
+        <ul class="post-tags">
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/elastic">elastic</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/python">python</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/bash">bash</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/analysis">analysis</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/elasticsearch">elasticsearch</a></li>
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            <blockquote>
+<p>Python functions to convert (Elastic) bytes/timing units to human
+readable format.</p>
+</blockquote>
+<h1 id="human-api-flag">Human API flag</h1>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html">Elasticsearch&rsquo;s API</a>
+offers multiple performance statistics for <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#byte-units">bytes</a>/<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#time-units">timing</a>
+that can have human readable,
+sister-columns emitted via <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#_human_readable_output"><code>?human</code></a> API flag.</p>
+<p>This human view can be very helpful on interpretting e.g.
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html">Node Stats</a>,
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html">Index Stats</a>,
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html">Repository Metering</a>,
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-recovery.html">Index Recovery</a>,
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html">Node Tasks</a>, and
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html">ILM Explain</a>.</p>
+<p>However, sometimes we need a middle-step calculation to make these
+emitted stats more usable/interpretable. E.g. since Node Stats increments
+<a href="https://medium.com/@stefnestor/es-node-uptime-755a76acb5e9">since Node uptime</a>,
+we could back-up from <a href="https://medium.com/@stefnestor/elasticsearch-ingest-rejections-ce97e2e9da00">total rejections/breakers</a>
+back to <a href="https://medium.com/@stefnestor/use-method-for-elasticsearch-d976802d8ba6">hourly averages (see &ldquo;examples&rdquo;)</a>.
+But once calculated, seeing it in human-readable format again would be
+a nice little cherry-on-top.</p>
+<h2 id="eg-disk-usage">E.g. disk usage</h2>
+<p>For example, let&rsquo;s check Elasticsearch disk for cache storage issues. As
+a human, we&rsquo;d check <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-allocation.html">CAT Allocation</a>
+to see if we show <code>disk.indices &lt;&lt; disk.used</code> anywhere.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span># GET _cat/allocation?v
+</span></span><span style="display:flex;"><span>shards disk.indices disk.used disk.avail disk.total disk.percent host       ip         node
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-    51       76.8mb    23.6gb     34.6gb     58.3gb           40 172.18.0.5 172.18.0.5 es0
+</span></span></span></code></pre></div><p>👻 This <em>very</em> clearly shows a huge  issue where <code>disk.indices</code> is <code>76.8mb</code>
+but <code>disk.used</code> is <code>23.6gb</code>. However, it required a human thinking to
+run this API. Since Elastic advises against <a href="https://medium.com/@stefnestor/elasticsearch-cat-alternatives-315f72ea6d5e">programming against its CAT API&rsquo;s</a>
+we&rsquo;ll instead look at <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html">Node Stats</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span># GET _nodes/stats?human&amp;filter_path=nodes.*.indices.store
+</span></span><span style="display:flex;"><span>{ &#34;nodes&#34;: { &#34;_zFc4lREQ4iXaHmZuID1Hg&#34;: {
+</span></span><span style="display:flex;"><span>    &#34;indices&#34;: { &#34;store&#34;: {
+</span></span><span style="display:flex;"><span>      &#34;reserved&#34;: &#34;0b&#34;,
+</span></span><span style="display:flex;"><span>      &#34;reserved_in_bytes&#34;: 0,
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-      &#34;size&#34;: &#34;76.8mb&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+      &#34;size_in_bytes&#34;: 80584938,
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>      &#34;total_data_set_size&#34;: &#34;76.8mb&#34;,
+</span></span><span style="display:flex;"><span>      &#34;total_data_set_size_in_bytes&#34;: 80584938
+</span></span><span style="display:flex;"><span>} } } } }
+</span></span></code></pre></div><p>This shows the same <code>disk.indices</code> at <code>76.8mb</code> that we saw before, but
+also includes <code>size_in_bytes</code> which we can use to build an automation on
+top. We&rsquo;d compare this data to <code>disk.used</code> which Elastic calculates as
+<code>disk.total - disk.available</code>. (Note: <em>not</em> related only to Elastic&rsquo;s
+<code>path.data</code> folder but disk as reported by the underlying OS. My example
+is a test environment running in a Docker container which is why the
+<code>disk.indices</code> is drastically far off <code>disk.used</code>.) To find these values,
+we&rsquo;d poll a variant <code>&amp;filter_path=</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span># GET _nodes/stats?human&amp;filter_path=nodes.*.fs.total
+</span></span><span style="display:flex;"><span>{ &#34;nodes&#34;: { &#34;_zFc4lREQ4iXaHmZuID1Hg&#34;: {
+</span></span><span style="display:flex;"><span>    &#34;fs&#34;: { &#34;total&#34;: {
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-      &#34;available&#34;: &#34;34.7gb&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+      &#34;available_in_bytes&#34;: 37283065856,
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>      &#34;free&#34;: &#34;37.7gb&#34;,
+</span></span><span style="display:flex;"><span>      &#34;free_in_bytes&#34;: 40499781632,
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-      &#34;total&#34;: &#34;58.3gb&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+      &#34;total_in_bytes&#34;: 62671097856
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>} } } } }
+</span></span></code></pre></div><p>So our <code>disk.used</code> calculates as <code>disk.total - disk.available</code> or
+<code>58.3gb - 34.7gb</code> so <code>23.6gb</code> which is what we saw above.</p>
+<p>This example is egregious so is easily human inspected. However, say the
+difference was closer or a human didn&rsquo;t coincidentally think to poll these
+API&rsquo;s. Instead, we&rsquo;d have a cron job polling this endpoint and then
+calculating the <code>disk.cache</code> via the sister-columns ending in <code>*_in_bytes</code>.</p>
+<pre tabindex="0"><code>disk.cache_in_bytes = (disk.total_in_bytes - disk.available_in_bytes) - disk.indices
+disk.cache_in_bytes = (62671097856 - 37283065856) - 80584938
+disk.cache_in_bytes = 25307447062
+</code></pre><p>(Noting per API doc&rsquo;s disclaimer, this is really an &ldquo;other&rdquo; category and
+not guaranteed to be only an Elasticsearch caching issue; however, for
+our purposes, I&rsquo;m assuming we&rsquo;ve already established base ignorable disk
+rate. I&rsquo;m fingers-crossed on getting better data from Elasticsearch&rsquo;s
+API on this ballpark in the future.)</p>
+<p>Now that we&rsquo;ve gotten to <code>disk.cache_in_bytes</code> as <code>25307447062</code>, we could
+alert based on that being higher than a threshold predetermined by our
+team. This circles us back to &ldquo;and now a human needs to take a look&rdquo;
+reporting <code>disk.cache</code> along side <code>disk.cache_in_bytes</code> might be helpful.</p>
+<h2 id="eg-index-refreshes">E.g. index refreshes</h2>
+<p>Pivoting for a second example, a human may ask &ldquo;how would I know if any indices'
+<code>refresh_interval</code> setting is set too low compared to how long its
+refreshes are actually taking?&rdquo;. There isn&rsquo;t an easy Elasticsearch CAT
+API to investigate this so we&rsquo;ll jump straight into programatically
+inspecting. We&rsquo;ll poll both <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-settings.html">Index Setting</a>
+and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html">Index Stats</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span># GET _settings?human&amp;expand_wildcards=all&amp;filter_path=*.settings.index.refresh_interval
+</span></span><span style="display:flex;"><span>{ &#34;.kibana_task_manager_8.8.0_001&#34;: {&#34;settings&#34;: {&#34;index&#34;: {
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-	&#34;refresh_interval&#34;: &#34;1s&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span>} } } }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># GET _stats?human&amp;expand_wildcards=all&amp;filter_path=indices.*.total.refresh
+</span></span><span style="display:flex;"><span>{ &#34;indices&#34;: { &#34;.kibana_task_manager_8.8.0_001&#34;: {
+</span></span><span style="display:flex;"><span>    &#34;total&#34;: { &#34;refresh&#34;: {
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">+      &#34;external_total&#34;: 642,
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span><span style="color:#f92672">-      &#34;external_total_time&#34;: &#34;9.3s&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+      &#34;external_total_time_in_millis&#34;: 9303,
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>      &#34;listeners&#34;: 0,
+</span></span><span style="display:flex;"><span>      &#34;total&#34;: 670,
+</span></span><span style="display:flex;"><span>      &#34;total_time&#34;: &#34;8.4s&#34;,
+</span></span><span style="display:flex;"><span>      &#34;total_time_in_millis&#34;: 8415
+</span></span><span style="display:flex;"><span>} } } } }
+</span></span></code></pre></div><p>(Tribal-knowledge, humans only care about <code>external_*</code> instead of
+<code>total_*</code>, but I&rsquo;m not sure where that&rsquo;s publicly documented.)</p>
+<p>So here we run into a new data interpretation category: Elastic uses human
+&ldquo;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#time-units">time units</a>&rdquo;.
+So a <code>refresh_interval</code> of <code>1s</code> has no sister-column like
+<code>refresh_interval_in_millis</code> of <code>1000</code> which we would have wanted
+for-programming reviews. We&rsquo;ll need to programatically account for it.</p>
+<p>The second highlight while we humans are here is just outlining what
+we&rsquo;d want our Python program to alert on:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> external_total <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> [<span style="color:#ae81ff">0</span>,<span style="color:#66d9ef">None</span>]:
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> refresh_interval_in_millis <span style="color:#f92672">&lt;</span> (external_total_time_in_millis <span style="color:#f92672">/</span> external_total):
+</span></span><span style="display:flex;"><span>		print(<span style="color:#e6db74">&#34;👻 alert&#34;</span>)
+</span></span></code></pre></div><p>which for us this human, manual calculation would show like</p>
+<pre tabindex="0"><code>1000ms &lt; (9303ms/642)
+1000ms &lt; 14.49ms
+# nope, so we&#39;re good 👌
+</code></pre><p>The right-hand of this equation/conditional highlights another helpful
+analytical ballpark for Elasticsearch diagnostics. I may not necessarily
+want to alert vs report for a human to read later the average time
+duration per event. (Some of Elastic&rsquo;s API&rsquo;s return below milliseconds,
+but the majority are that level so we&rsquo;ll do the same.) Elasticsearch&rsquo;s
+API only currently emits total counts and total durations, so anywhere
+we either want an alert/report on average durations per event, we&rsquo;ll
+need to manually calculate and/or manually format as desired for human
+usage later.</p>
+<h1 id="functions">Functions</h1>
+<p>I&rsquo;m liking Elasticsearch&rsquo;s API&rsquo;s human-readable flag. It makes human
+intuiting a lot quicker during investigations. In the same spirit that
+mathematics claims &ldquo;don&rsquo;t round along the way, only at the end&rdquo;, since
+I would claim there&rsquo;s further analytics we&rsquo;d want to do with their data,
+we need to take a step back to the non-human-readable data, make our new
+calculations, and then format back for humans to see. (This outline is
+purposely going to leave the sister-columns for human-readable along
+side for-programming rather than prescribing which to use when. Snippets
+are Python.)</p>
+<h2 id="to-human-bytes">To human bytes</h2>
+<p>I haven&rsquo;t found a need yet for &ldquo;human to bytes&rdquo; so skipping that. On
+converting <code>*_in_bytes</code>, we can just repurpose this <a href="https://stackoverflow.com/a/1094933/7938558">StackOverflow</a>
+answer noting <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#byte-units">Elastic only reports</a>
+up to petabytes (and you could go higher but I&rsquo;m less familiar with
+higher and it&rsquo;s non-intuitive for me so living with their cap):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">b2human</span>(num):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> num <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> num
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> unit <span style="color:#f92672">in</span> (<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;kb&#34;</span>, <span style="color:#e6db74">&#34;mb&#34;</span>, <span style="color:#e6db74">&#34;gb&#34;</span>, <span style="color:#e6db74">&#34;tb&#34;</span>, <span style="color:#e6db74">&#34;pb&#34;</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> abs(num) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1024.0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>num<span style="color:#e6db74">:</span><span style="color:#e6db74">3.1f</span><span style="color:#e6db74">}{</span>unit<span style="color:#e6db74">}</span><span style="color:#e6db74">b&#34;</span>
+</span></span><span style="display:flex;"><span>        num <span style="color:#f92672">/=</span> <span style="color:#ae81ff">1024.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>num<span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">Yib&#34;</span>
+</span></span></code></pre></div><h2 id="from-human-time">From human time</h2>
+<p>OK, the next ballpark we run in to is where Elasticsearch&rsquo;s API <em>only</em>
+reports the human-readable <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#time-units">time unit</a>
+and doesn&rsquo;t include it&rsquo;s sister-column for-programming. E.g. <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-settings.html">Index Settings</a>
+<code>refresh_interval</code> (exemplified above). E.g. <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html">ILM Explain</a>
+<code>age</code>. So here we need to determine the time unit and then convert from
+that unit down to some base unit/metric. AFAICT Elastic goes down to
+nanoseconds though the vast majority of its statistics are milliseconds;
+however, avoiding the edge case, we end up with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">humanTime2nanos</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> x <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> x
+</span></span><span style="display:flex;"><span>    num <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    unit <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    TIME_UNITS <span style="color:#f92672">=</span> [[<span style="color:#e6db74">&#34;nanos&#34;</span>, <span style="color:#ae81ff">1000</span>], [<span style="color:#e6db74">&#34;micros&#34;</span>, <span style="color:#ae81ff">1000</span>], [<span style="color:#e6db74">&#34;ms&#34;</span>, <span style="color:#ae81ff">1000</span>], [<span style="color:#e6db74">&#34;s&#34;</span>, <span style="color:#ae81ff">60</span>], [<span style="color:#e6db74">&#34;m&#34;</span>, <span style="color:#ae81ff">60</span>], [<span style="color:#e6db74">&#34;h&#34;</span>, <span style="color:#ae81ff">24</span>], [<span style="color:#e6db74">&#34;d&#34;</span>, <span style="color:#ae81ff">30</span>], [<span style="color:#e6db74">&#34;M&#34;</span>, <span style="color:#ae81ff">12</span>], [<span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#ae81ff">1</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> TIME_UNITS:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> x<span style="color:#f92672">.</span>endswith(u[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">and</span> unit<span style="color:#f92672">==</span><span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">=</span> float(x[:<span style="color:#f92672">-</span>len(u[<span style="color:#ae81ff">0</span>])])
+</span></span><span style="display:flex;"><span>            unit <span style="color:#f92672">=</span> u[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> num <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> num
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> TIME_UNITS:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> unit<span style="color:#f92672">==</span>u[<span style="color:#ae81ff">0</span>]:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> num
+</span></span><span style="display:flex;"><span>        num <span style="color:#f92672">*=</span> u[<span style="color:#ae81ff">1</span>]
+</span></span></code></pre></div><h2 id="to-human-time">To human time</h2>
+<p>So we have this conversion one-way, let&rsquo;s now outline backwards. (Note:
+I only care about estimates and not exact conversions so we&rsquo;re
+simplifying some real-life nuance, e.g. days-to-months is assumed 30. This
+code could potentially simplify, but I hit my &ldquo;better done than perfect&rdquo;.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ms2humanTime</span>(num):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> num <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> num    
+</span></span><span style="display:flex;"><span>    unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ms&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(num)<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        num <span style="color:#f92672">=</span> num<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span> 
+</span></span><span style="display:flex;"><span>        unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> abs(num)<span style="color:#f92672">/</span><span style="color:#ae81ff">60</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">=</span> num<span style="color:#f92672">/</span><span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>            unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;m&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> abs(num)<span style="color:#f92672">/</span><span style="color:#ae81ff">60</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                num <span style="color:#f92672">=</span> num<span style="color:#f92672">/</span><span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>                unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;h&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> abs(num)<span style="color:#f92672">/</span><span style="color:#ae81ff">24</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                    num <span style="color:#f92672">=</span> num<span style="color:#f92672">/</span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>                    unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;d&#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> abs(num)<span style="color:#f92672">/</span><span style="color:#ae81ff">30</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                        num <span style="color:#f92672">=</span> num<span style="color:#f92672">/</span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>                        unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;M&#34;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> abs(num)<span style="color:#f92672">/</span><span style="color:#ae81ff">12</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                            num <span style="color:#f92672">=</span> num<span style="color:#f92672">/</span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>                            unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>num<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}{</span>unit<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">nanos2humanTime</span>(num):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> num <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> num
+</span></span><span style="display:flex;"><span>    unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nanos&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(num)<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        num <span style="color:#f92672">=</span> num<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>        unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;micros&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(num)<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        num <span style="color:#f92672">=</span> num<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>        unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ms&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ms2humanTime(num)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>num<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">nanos&#34;</span>
+</span></span></code></pre></div><h2 id="better-human-time">Better human time</h2>
+<p>You&rsquo;ll note Elastic&rsquo;s <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#time-units">time units</a>
+don&rsquo;t include <code>M</code> (month) or <code>y</code> (year); however, its <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#date-math">date math</a>
+does <em>and</em> especially on ILM&rsquo;s statistics I get annoyed trying to
+interpret an index&rsquo;s <code>age</code> of <code>700d</code> being somewhere human-guestimated
+of around <code>2y</code>.</p>
+<p>Vs now if you append a convert-to-and-back-immediately function to
+check the above code &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">humanTime2humanTime</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> nanos2humanTime( humanTime2nanos(x) )
+</span></span></code></pre></div><p>&hellip; then we end up easily showing <code>700d</code> is <code>1.94y</code> in a Bash console via
+<a href="https://ipython.org">Ipython</a> &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ipython -i -c <span style="color:#e6db74">&#34;import sys,os; sys.path.append(os.environ[\&#34;HOME_LIB\&#34;]) ; from elastic import *&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">In [1]: humanTime2humanTime(&#34;</span>700d<span style="color:#e6db74">&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Out[1]: &#39;1.94y&#39;
+</span></span></span></code></pre></div><p>&hellip; Much better.</p>
+
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    <svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="topFunction()" title="Go to top">
+        
+        <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/>
+    </svg>
+    
+    <script>
+        let backToTopButton = document.getElementById("btt-button");
+
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            smoothScrollToTop();
+        }
+
+        function smoothScrollToTop() {
+            const scrollToTop = () => {
+                const c = document.documentElement.scrollTop || document.body.scrollTop;
+                if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                }
+            };
+            scrollToTop();
+        }
+    </script>
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#human-api-flag">Human API flag</a>
+      <ul>
+        <li><a href="#eg-disk-usage">E.g. disk usage</a></li>
+        <li><a href="#eg-index-refreshes">E.g. index refreshes</a></li>
+      </ul>
+    </li>
+    <li><a href="#functions">Functions</a>
+      <ul>
+        <li><a href="#to-human-bytes">To human bytes</a></li>
+        <li><a href="#from-human-time">From human time</a></li>
+        <li><a href="#to-human-time">To human time</a></li>
+        <li><a href="#better-human-time">Better human time</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+    <span>&copy; 2024 Stef Nestor</span>
+    
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/526avijitgupta/gokarna">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

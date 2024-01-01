@@ -6,8 +6,15 @@
     <description>Recent content in bash on 🦖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Jun 2022 12:00:00 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jan 2024 12:00:00 -0700</lastBuildDate>
     <atom:link href="https://stefnestor.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Convert Elastic Units</title>
+      <link>https://stefnestor.github.io/labs/convert-elastic-units/</link>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 -0700</pubDate>
+      <guid>https://stefnestor.github.io/labs/convert-elastic-units/</guid>
+      <description>Python functions to convert (Elastic) bytes/timing units to human readable format.&#xA;Human API flag Elasticsearch&amp;rsquo;s API offers multiple performance statistics for bytes/timing that can have human readable, sister-columns emitted via ?human API flag.&#xA;This human view can be very helpful on interpretting e.g. Node Stats, Index Stats, Repository Metering, Index Recovery, Node Tasks, and ILM Explain.&#xA;However, sometimes we need a middle-step calculation to make these emitted stats more usable/interpretable.</description>
+    </item>
     <item>
       <title>Bash Report Append</title>
       <link>https://stefnestor.github.io/labs/bash-report-append/</link>
