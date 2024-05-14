@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Three Node Elasticsearch Docker</title>
+    <meta name="description" content="">
+    <meta name="keywords" content='elastic, docker, bash, elasticsearch, docker-compose'>
+
+    <meta property="og:url" content="https://stefnestor.github.io/labs/docker-3-es-nodes/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Three Node Elasticsearch Docker">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://stefnestor.github.io/">
+    <meta property="og:image:secure_url" content="https://stefnestor.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Three Node Elasticsearch Docker">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="https://stefnestor.github.io/labs/docker-3-es-nodes/">
+    <meta property="twitter:url" content="https://stefnestor.github.io/labs/docker-3-es-nodes/">
+    <meta name="twitter:image" content="https://stefnestor.github.io/">
+
+    
+    <link rel="canonical" href="https://stefnestor.github.io/labs/docker-3-es-nodes/" />
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.fbe2f55794ed6ded1573152a130784ee5cb022de9676b19dd37d7559ee6f6fc6.js" integrity="sha256-&#43;&#43;L1V5Ttbe0VcxUqEweE7lywIt6WdrGd0311We5vb8Y="></script>
+
+    
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://stefnestor.github.io/">🦖</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/labs/"> labs </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/cache/"> cache </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/tags/"> tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/labs/"> labs </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/cache/"> cache </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/tags/"> tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Three Node Elasticsearch Docker</h1>
+        <small role="doc-subtitle"></small>
+        <p class="post-date">May 14, 2024
+        
+        </p>
+
+        <ul class="post-tags">
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/elastic">elastic</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/docker">docker</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/bash">bash</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/elasticsearch">elasticsearch</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/docker-compose">docker-compose</a></li>
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            <p><strong>GOAL</strong>: Automate spinning up v7.x or v8.x Elasticearch clusters with 3 nodes for testing.</p>
+<h1 id="guide">Guide</h1>
+<p>Elastic&rsquo;s published a quick-start guide: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-compose-file">Start a multi-node cluster with Docker Compose</a> . Following this, we can quickly get up and running via commands</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ where
+</span></span><span style="display:flex;"><span>~/downloads/docker3es
+</span></span><span style="display:flex;"><span>$ curl -s -o <span style="color:#e6db74">&#34;.env&#34;</span> https://raw.githubusercontent.com/elastic/elasticsearch/8.13/docs/reference/setup/install/docker/.env
+</span></span><span style="display:flex;"><span>$ curl -s -o <span style="color:#e6db74">&#34;docker-compose.yml&#34;</span> https://raw.githubusercontent.com/elastic/elasticsearch/8.13/docs/reference/setup/install/docker/docker-compose.yml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># fill in .env details</span>
+</span></span><span style="display:flex;"><span>$ cat .env | grep -v <span style="color:#e6db74">&#34;#&#34;</span>
+</span></span><span style="display:flex;"><span>ELASTIC_PASSWORD<span style="color:#f92672">=</span>changeme
+</span></span><span style="display:flex;"><span>KIBANA_PASSWORD<span style="color:#f92672">=</span>changeme
+</span></span><span style="display:flex;"><span>STACK_VERSION<span style="color:#f92672">=</span>8.13.4
+</span></span><span style="display:flex;"><span>CLUSTER_NAME<span style="color:#f92672">=</span>my-docker-cluster
+</span></span><span style="display:flex;"><span>LICENSE<span style="color:#f92672">=</span>trial
+</span></span><span style="display:flex;"><span>ES_PORT<span style="color:#f92672">=</span>127.0.0.1:9200
+</span></span><span style="display:flex;"><span>KIBANA_PORT<span style="color:#f92672">=</span><span style="color:#ae81ff">5601</span>
+</span></span><span style="display:flex;"><span>MEM_LIMIT<span style="color:#f92672">=</span><span style="color:#ae81ff">1073741824</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ docker-compose up -d
+</span></span><span style="display:flex;"><span>$ open -a Firefox http://localhost:5601
+</span></span></code></pre></div><h1 id="automate">Automate</h1>
+<p>From this, we can reformat this default guide to allow multiple version to simultaneously spin-up against this <code>docker-compose.yml</code> within a single host by dynamically handling their ports based on version <code>major.minor</code>.</p>
+<p>So in a directory (with Elastic&rsquo;s unmodified <code>docker-compose.yml</code>) &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ls
+</span></span><span style="display:flex;"><span>docker-compose.yml
+</span></span><span style="display:flex;"><span>elk.sh
+</span></span></code></pre></div><p>&hellip; we can create a wrapping Bash function <code>elk.sh</code> which reads in <code>-v</code> version (required) and <code>-p</code> password (optional).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> getopts <span style="color:#e6db74">&#39;v:p:h&#39;</span> opt; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+</span></span><span style="display:flex;"><span>    v<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      v<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$OPTARG<span style="color:#e6db74">&#34;</span> ;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      p<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$OPTARG<span style="color:#e6db74">&#34;</span> ;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ?|h<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      echo <span style="color:#e6db74">&#34;Usage: </span><span style="color:#66d9ef">$(</span>basename $0<span style="color:#66d9ef">)</span><span style="color:#e6db74"> [-v arg] [-p arg]&#34;</span>
+</span></span><span style="display:flex;"><span>      exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      ;;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">esac</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>shift <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$((</span>$OPTIND <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#66d9ef">))</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -z $p <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span> p<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changeme&#34;</span>; <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -z $v <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span> echo <span style="color:#e6db74">&#34;👻 provide version, e.g. 8.13.0&#34;</span> <span style="color:#f92672">&amp;&amp;</span> exit 1; <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> short_version <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  version_re<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;([0-9]+)\.([0-9]+)\.([0-9]+)&#34;</span>
+</span></span><span style="display:flex;"><span>  version<span style="color:#f92672">=</span>$1
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">[[</span> $version <span style="color:#f92672">=</span>~ $version_re <span style="color:#f92672">]]</span>
+</span></span><span style="display:flex;"><span>  v_max<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>BASH_REMATCH[1]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  v_min<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>BASH_REMATCH[2]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">${#</span>v_min<span style="color:#e6db74">}</span>&lt;<span style="color:#ae81ff">2</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span> v_min<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0</span><span style="color:#e6db74">${</span>v_min<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>  cur_version<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>v_max<span style="color:#e6db74">}${</span>v_min<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  echo $cur_version
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vs<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>short_version $v<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>ves<span style="color:#f92672">=</span>$vs<span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>env<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">CLUSTER_NAME=es-</span>$vs<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">COMPOSE_PROJECT_NAME=es-</span>$vs<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">STACK_VERSION=</span>$v<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ELASTIC_PASSWORD=</span>$p<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ES_PORT=127.0.0.1:</span>$ves<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">KIBANA_PASSWORD=</span>$p<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">KIBANA_PORT=</span>$vs<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">LICENSE=trial
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">MEM_LIMIT=1073741824
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span> export $env; docker compose -f <span style="color:#66d9ef">$(</span>eval dirname <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>realpath $0<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>/docker-compose.yml up -d <span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🦖&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;KB: http://localhost:</span>$vs<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;ES: https://localhost:</span>$ves<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><blockquote>
+<p><em>Note</em>: This will not let you run simultaneous <code>patch</code> versions of a <code>major.minor.patch</code> version, but it will let you run various majors/minors. So for example <code>8.13.4</code> cannot be ran simultaneous to <code>8.13.3</code> but it can be ran along side <code>8.11.1</code>.</p>
+</blockquote>
+<p>I prefer to set the reference to <code>elk.sh</code> in my Dotfiles / <code>.bash_profile</code> as <code>eck</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ alias elk
+</span></span><span style="display:flex;"><span>alias elk<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bash ~/Documents/docker3ek/elk.sh&#39;</span>
+</span></span></code></pre></div><p>So running two versions at once to cross-compare would then appear</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ bash start.sh -v 8.13.4
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Building 0.0s <span style="color:#f92672">(</span>0/0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Running 6/6
+</span></span><span style="display:flex;"><span> ✔ Network es-813_default     Created                           0.1s
+</span></span><span style="display:flex;"><span> ✔ Container es-813-setup-1   Healthy                           1.7s
+</span></span><span style="display:flex;"><span> ✔ Container es-813-es01-1    Healthy                          22.1s
+</span></span><span style="display:flex;"><span> ✔ Container es-813-es02-1    Healthy                          22.1s
+</span></span><span style="display:flex;"><span> ✔ Container es-813-es03-1    Healthy                          12.6s
+</span></span><span style="display:flex;"><span> ✔ Container es-813-kibana-1  Started                          22.2s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>🦖
+</span></span><span style="display:flex;"><span>KB: http://localhost:813
+</span></span><span style="display:flex;"><span>ES: https://localhost:8130
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docker3es$ bash start.sh -v 8.11.1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Building 0.0s <span style="color:#f92672">(</span>0/0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Running 11/11
+</span></span><span style="display:flex;"><span> ✔ Network es-811_default      Created                          0.0s
+</span></span><span style="display:flex;"><span> ✔ Volume <span style="color:#e6db74">&#34;es-811_esdata02&#34;</span>    Created                          0.0s
+</span></span><span style="display:flex;"><span> ✔ Volume <span style="color:#e6db74">&#34;es-811_esdata03&#34;</span>    Created                          0.0s
+</span></span><span style="display:flex;"><span> ✔ Volume <span style="color:#e6db74">&#34;es-811_certs&#34;</span>       Created                          0.0s
+</span></span><span style="display:flex;"><span> ✔ Volume <span style="color:#e6db74">&#34;es-811_kibanadata&#34;</span>  Created                          0.0s
+</span></span><span style="display:flex;"><span> ✔ Volume <span style="color:#e6db74">&#34;es-811_esdata01&#34;</span>    Created                          0.0s
+</span></span><span style="display:flex;"><span> ✔ Container es-811-setup-1    Healthy                          2.8s
+</span></span><span style="display:flex;"><span> ✔ Container es-811-es01-1     Healthy                         23.2s
+</span></span><span style="display:flex;"><span> ✔ Container es-811-es02-1     Healthy                         23.1s
+</span></span><span style="display:flex;"><span> ✔ Container es-811-es03-1     Healthy                         23.6s
+</span></span><span style="display:flex;"><span> ✔ Container es-811-kibana-1   Started                         23.9s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>🦖
+</span></span><span style="display:flex;"><span>KB: http://localhost:811
+</span></span><span style="display:flex;"><span>ES: https://localhost:8110
+</span></span></code></pre></div><blockquote>
+<p><em>Disclaimer</em>: This was tested on Mac running Terminal with default Bash Shell.</p>
+</blockquote>
+
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    <svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="topFunction()" title="Go to top">
+        
+        <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/>
+    </svg>
+    
+    <script>
+        let backToTopButton = document.getElementById("btt-button");
+
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            smoothScrollToTop();
+        }
+
+        function smoothScrollToTop() {
+            const scrollToTop = () => {
+                const c = document.documentElement.scrollTop || document.body.scrollTop;
+                if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                }
+            };
+            scrollToTop();
+        }
+    </script>
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#guide">Guide</a></li>
+    <li><a href="#automate">Automate</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+    <span>&copy; 2024 Stef Nestor</span>
+    
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/526avijitgupta/gokarna">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

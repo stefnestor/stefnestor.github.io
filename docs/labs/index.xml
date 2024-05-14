@@ -6,8 +6,15 @@
     <description>Recent content in Labs on 🦖</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jan 2024 12:00:00 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 14 May 2024 12:00:00 -0700</lastBuildDate>
     <atom:link href="https://stefnestor.github.io/labs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Three Node Elasticsearch Docker</title>
+      <link>https://stefnestor.github.io/labs/docker-3-es-nodes/</link>
+      <pubDate>Tue, 14 May 2024 12:00:00 -0700</pubDate>
+      <guid>https://stefnestor.github.io/labs/docker-3-es-nodes/</guid>
+      <description>GOAL: Automate spinning up v7.x or v8.x Elasticearch clusters with 3 nodes for testing.&#xA;Guide Elastic&amp;rsquo;s published a quick-start guide: Start a multi-node cluster with Docker Compose . Following this, we can quickly get up and running via commands&#xA;$ where ~/downloads/docker3es $ curl -s -o &amp;#34;.env&amp;#34; https://raw.githubusercontent.com/elastic/elasticsearch/8.13/docs/reference/setup/install/docker/.env $ curl -s -o &amp;#34;docker-compose.yml&amp;#34; https://raw.githubusercontent.com/elastic/elasticsearch/8.13/docs/reference/setup/install/docker/docker-compose.yml # fill in .env details $ cat .env | grep -v &amp;#34;#&amp;#34; ELASTIC_PASSWORD=changeme KIBANA_PASSWORD=changeme STACK_VERSION=8.13.4 CLUSTER_NAME=my-docker-cluster LICENSE=trial ES_PORT=127.</description>
+    </item>
     <item>
       <title>Convert Elastic Units</title>
       <link>https://stefnestor.github.io/labs/convert-elastic-units/</link>
