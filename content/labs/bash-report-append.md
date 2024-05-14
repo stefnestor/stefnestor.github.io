@@ -7,9 +7,31 @@ tags = [ 'bash', 'analysis', 'jq' ]
 showTableOfContents = true
 +++
 
-
 **GOAL**: Forward console research (command and output) into notes to 
 reduce report write-up time.
+
+## D - Follow-up
+
+2024Feb05: I decided I didn't like the below `append` function enough that I [asked StackOverflow](https://stackoverflow.com/questions/77944543/character-escaping-double-quotes-in-bash-append-file-of-command-and-output) what to do & their response was *much* better than what I had below. Now the much simpler code stores the info within the directory ran to a file called `SUM` (but should only be ran for code which has a consistent output if ran twice). 
+
+So my dotfiles now reads:
+
+```bash
+function stash {
+  cmd="$(history -- -2 | head -n1 | cut -c8-)"
+  FILE='./SUM'
+  echo $cmd >> $FILE && eval $cmd >> $FILE && echo "  " >> $FILE
+}
+
+function save {
+  stash
+}
+```
+
+
+---
+
+20220627: 
 
 ## A - Lab
 
