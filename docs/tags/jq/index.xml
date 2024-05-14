@@ -13,7 +13,7 @@
       <link>https://stefnestor.github.io/labs/bash-report-append/</link>
       <pubDate>Mon, 27 Jun 2022 12:00:00 -0700</pubDate>
       <guid>https://stefnestor.github.io/labs/bash-report-append/</guid>
-      <description>GOAL: Forward console research (command and output) into notes to reduce report write-up time.&#xA;A - Lab 1. code Note: This is more complex than your normal google results of &amp;ldquo;add output to file&amp;rdquo; because we want to also capture the generating command.&#xA;Preferably, you&amp;rsquo;ll add the following into your .bash_profile or bash dotfiles to be able to access this append command from any session.&#xA;### to use # 1. execute random command # 2.</description>
+      <description>GOAL: Forward console research (command and output) into notes to reduce report write-up time.&#xA;D - Follow-up 2024Feb05: I decided I didn&amp;rsquo;t like the below append function enough that I asked StackOverflow what to do &amp;amp; their response was much better than what I had below. Now the much simpler code stores the info within the directory ran to a file called SUM (but should only be ran for code which has a consistent output if ran twice).</description>
     </item>
     <item>
       <title>Kibana Outline</title>
