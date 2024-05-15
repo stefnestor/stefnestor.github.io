@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Common Elasticsearch CURL Errors</title>
+    <meta name="description" content="">
+    <meta name="keywords" content='elastic, api, curl, bash, elasticsearch, network'>
+
+    <meta property="og:url" content="https://stefnestor.github.io/labs/elasticsearch-curl-errors/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Common Elasticsearch CURL Errors">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://stefnestor.github.io/">
+    <meta property="og:image:secure_url" content="https://stefnestor.github.io/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Common Elasticsearch CURL Errors">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="https://stefnestor.github.io/labs/elasticsearch-curl-errors/">
+    <meta property="twitter:url" content="https://stefnestor.github.io/labs/elasticsearch-curl-errors/">
+    <meta name="twitter:image" content="https://stefnestor.github.io/">
+
+    
+    <link rel="canonical" href="https://stefnestor.github.io/labs/elasticsearch-curl-errors/" />
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.fbe2f55794ed6ded1573152a130784ee5cb022de9676b19dd37d7559ee6f6fc6.js" integrity="sha256-&#43;&#43;L1V5Ttbe0VcxUqEweE7lywIt6WdrGd0311We5vb8Y="></script>
+
+    
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://stefnestor.github.io/">🦖</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/labs/"> labs </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/cache/"> cache </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://stefnestor.github.io/tags/"> tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/labs/"> labs </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/cache/"> cache </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://stefnestor.github.io/tags/"> tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com/stefnestor/"target="_blank"><span data-feather='github'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Common Elasticsearch CURL Errors</h1>
+        <small role="doc-subtitle"></small>
+        <p class="post-date">May 14, 2024
+        
+        </p>
+
+        <ul class="post-tags">
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/elastic">elastic</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/api">api</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/curl">curl</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/bash">bash</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/elasticsearch">elasticsearch</a></li>
+        
+            <li class="post-tag"><a href="https://stefnestor.github.io/tags/network">network</a></li>
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            <p><strong>GOAL</strong>: The following are common <code>curl</code> errors which surface in context to Elasticsearch but do not necessarily indicate an issue with its service vs how the client-side request was made. Errors are organized by networking &gt; certificates &gt; Elasticsearch layers.</p>
+<h1 id="routing">routing</h1>
+<p>Examples: (<code>Could not retrieve the Elasticsearch version due to a system or network error - unable to continue.</code>, <code>Unable to connect to Elasticsearch at localhost:9200</code>, <code>No living connections</code>).</p>
+<h2 id="connection-refused">connection refused</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl https://myElasticsearchURL.com:9200
+</span></span><span style="display:flex;"><span>url: <span style="color:#f92672">(</span>7<span style="color:#f92672">)</span> Failed connect to myElasticsearchURL.com:9200; Connection refused
+</span></span></code></pre></div><p>Alternatives: (<code>ERR_CONNECTION_REFUSED</code>, <code>ECONNREFUSED</code>, <code>This site can’t be reached</code>, <code>This page is unavailable</code>, <code>Unable to connect</code>, <code>Hmmm…can’t reach this page</code>, <code>connection failed to node at</code>, <code>failed to connect to</code>). This generically claims network routing issues to the <code>host:port</code> pair or responsiveness issues from it. It is quite a generic and also fairly common non-Elasticsearch-related networking error.</p>
+<p>As escalating investigation steps:</p>
+<ul>
+<li><strong>IF</strong> Elasticsearch is not responsive on <code>localhost</code>, it&rsquo;s probably exited (and if you recently started it up you might grep its logs for <code>StartupException</code>).</li>
+<li><strong>IF</strong> Elasticsearch is responsive on <code>localhost</code> on local box, then this error indicates something network related.</li>
+<li><strong>IF</strong> Elasticsearch is responsive on <code>localhost</code> but not desired IP/FQDN on local box, you&rsquo;ll need to review <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-network.html#common-network-settings">Elasticsearch network settings</a> (usually <code>network.host</code>).</li>
+<li>Otherwise, it&rsquo;s likely a non-Elasticsearch-related network error. At this point, it usually indicates inability to route the <code>curl</code> request to the target <code>host:port</code>. This could be for various reasons, but listing some common:
+<ul>
+<li>incorrect <code>port</code></li>
+<li>firewall blocking/timeout</li>
+<li>proxy rejection/timeout</li>
+<li>DNS cache</li>
+<li>enabled/disabled VPN</li>
+<li><a href="https://support.site24x7.com/portal/en/kb/articles/troubleshoot-connection-refused-error111-for-elasticsearch-plugins">More ideas</a>.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em>NOTE</em>: Kibana reporting <code>connection error</code> to Elasticsearch is not the same ballpark of error; instead check Kibana logs for root error.</p>
+</blockquote>
+<h2 id="empty-reply-from-server">empty reply from server</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl localhost:9200
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>52<span style="color:#f92672">)</span> Empty reply from server
+</span></span></code></pre></div><p>This occurs when Elasticsearch is not running on the <code>host:port</code> pair. This commonly comes up when either</p>
+<ul>
+<li>the Elasticsearch service is stopped</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/secure-cluster.html">Elasticearch is SSL-enabled</a> . Then it will reject HTTP traffic and only allow HTTPS traffic. So instead, the command will work by adding an explicit <code>https://</code> in front of the <code>localhost</code> host.</li>
+</ul>
+<h2 id="connect-to-host">connect to host</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl 127.0.0.1:9200
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>7<span style="color:#f92672">)</span> couldn<span style="color:#960050;background-color:#1e0010">&#39;</span>t connect to host
+</span></span></code></pre></div><p>This occurs when Elasticsearch is not running on the <code>host:port</code> pair (usually when not <code>localhost</code>). Usually if <code>127.0.0.1</code> specifically induces this error, you&rsquo;ll check <code>localhost</code> instead for further troubleshooting.</p>
+<h1 id="certificates">certificates</h1>
+<p>Example:  (<code>Unable to retrieve version information from Elasticsearch nodes. unable to get issuer certificate</code>).</p>
+<p>Certificate issues usually source in setup file reference issues or outside-Elasticsearch certificate setup issues. The following therefore offer first troubleshooting steps but will not normally be able to tell you how to resolve your certificate issue vs recommend recreating.</p>
+<blockquote>
+<p><em>NOTE</em>: Various of the below issues can by bypassed (not necessarily recommended) by disabling certificate verification or running the request insecure (e.g. <code>-k</code> or <code>--insecure</code> for <code>curl</code> requests). This is a common pre-production troubleshooting method. Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k https://localhost:9200
+</span></span></code></pre></div><p>See also <a href="https://www.elastic.co/blog/configuring-ssl-tls-and-https-to-secure-elasticsearch-kibana-beats-and-logstash">Elastic&rsquo;s blog</a> &amp; <a href="https://opster.com/guides/elasticsearch/security/elasticsearch-cluster-security/">Opsters Certificate guide</a> (<a href="https://opster.com/guides/elasticsearch/how-tos/update-elasticsearch-security-certificates/">alt</a>).</p>
+</blockquote>
+<h2 id="local-issuer">local issuer</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl https://localhost:9200
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>60<span style="color:#f92672">)</span> SSL certificate problem: unable to get local issuer certificate
+</span></span></code></pre></div><p>When Elasticsearch is HTTP SSL-enabled with certificates (so <code>elasticsearch.yml</code> contains <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/security-settings.html#http-tls-ssl-settings"><code>xpack.security.http.ssl</code></a> settings related to certificates), then it will error when client-side attempts traffic without certificates. Depending on your setting&rsquo;s (<code>verification_mode</code>, <code>verificationMode</code>, <code>verify_certs</code>)  you will be required to supply the certificates.</p>
+<h2 id="invalid-chain">invalid chain</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200 
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>35<span style="color:#f92672">)</span> OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to localhost:9200 
+</span></span></code></pre></div><p>Where backend client-side/Elasticsearch logs report (<code>Certificate chain is not valid</code> , <code> Certificate chain was invalid [Invalid Entry: expected X.509 Certificate</code>, <code>Caused by: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target</code>).</p>
+<p>This has occurred historically because &hellip; requiring recreating.</p>
+<ul>
+<li>the certificates in the chain were in the incorrect order</li>
+<li>the root CA is not available / is invalid</li>
+</ul>
+<h2 id="failed-verify">failed verify</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200 
+</span></span><span style="display:flex;"><span>CERTIFICATE_VERIFY_FAILED
+</span></span></code></pre></div><p>Where backend client-side/Elasticsearch logs report (<code>ConnectionError([SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed</code>). Usually Go/Python/Java will error this and you&rsquo;ll need to <code>curl</code> to further investigate the issue. Alternatively, this is a generic certificate error and further down <code>Caused By</code> messages in Elasticsearch logs would tell you what to investigate. The most common causes are the next couple of errors below.</p>
+<h2 id="self-signed">self signed</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span>curl <span style="color:#f92672">(</span>60<span style="color:#f92672">)</span> ssl certificate problem self signed certificate in certificate chain
+</span></span></code></pre></div><p>Highlighting this is not an Elasticsearch-induced error but a certificate setup error. See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-basic-setup-https.html">Elasticsearch&rsquo;s setup guide</a>, but for example can resolve by</p>
+<ul>
+<li>not using self-signed certificate</li>
+<li>declaring certificate reference in <code>curl</code> requests, for example via <code>--cacert</code></li>
+<li>setting (<code>elasticsearch.ssl.certificateAuthorities</code>, <code>ssl.certificate_authorities</code>)</li>
+<li>(not recommended) disable this check client-side <code>elasticsearch.ssl.verificationMode:none</code> (e.g. <a href="https://www.elastic.co/guide/en/kibana/current/settings.html">for Kibana</a>)</li>
+</ul>
+<h2 id="trust-error">trust error</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200 --cacert ./mycert.pem 
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>60<span style="color:#f92672">)</span> schannel: CertGetCertificateChain trust error CERT_TRUST_REVOCATION_STATUS_UNKNOWN
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>60<span style="color:#f92672">)</span> The certificate chain was issued by an authority that is not trusted. SEC_E_UNTRUSTED_ROOT 
+</span></span></code></pre></div><p>Both of these errors can occur in Windows invalidly as an certificate path look-up erring from being invalid or user not having permissions. Outside of that it is a certificate level error and which is usually recreated to resolve.</p>
+<h2 id="unknown-authority">unknown authority</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span>Error dialing x509: certificate signed by unknown authority
+</span></span></code></pre></div><p>This sometimes is a parent-level error to other errors on this page. Otherwise, you&rsquo;ll need to investigate writing/fixing settings like <code>certificate_authorities</code> (e.g. <a href="https://www.elastic.co/guide/en/beats/filebeat/current/configuration-ssl.html#server-verification-mode">Filebeat</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-basic-setup-https.html">Elasticsearch</a>).</p>
+<h2 id="alternative-subject-name">alternative subject name</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>60<span style="color:#f92672">)</span> no alternative certificate subject name matches target host name <span style="color:#e6db74">&#39;XXXXX&#39;</span>
+</span></span></code></pre></div><p>Alternatively (<code>ERR_TLS_CERT_ALTNAME_INVALID</code>). This is a certificate setup issue. If using <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/certutil.html">elasticsearch-certutil</a> to create your certificates, see settings (<code>--dns</code>, <code>--ip</code>).</p>
+<h2 id="expired-or-inactive">expired or inactive</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span>Error dialing x509: certificate has expired or is not yet valid
+</span></span></code></pre></div><p>This is a certificate setup issue which is resolved by recreating with valid time ranges. I don&rsquo;t know how to handle this ballpark so just linking <a href="https://sematext.com/blog/ssl-certificate-error/">Sematext&rsquo;s blog</a> about this ballpark.</p>
+<h2 id="bad">bad</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200 -v  | grep <span style="color:#e6db74">&#39;SSL_ERROR_BAD_CERT_ALERT&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># can error for various reasons but for example</span>
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>58<span style="color:#f92672">)</span> NSS: client certificate not found <span style="color:#f92672">(</span>nickname not specified<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Error pinging server: ConnectionError: Invalid or malformed certificate
+</span></span></code></pre></div><p>There&rsquo;s a multitude of rabbit-hole reasons a certificate can be bad. Here&rsquo;s the most common reasons I&rsquo;ve found as seen client-side or within Elasticsearch logs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Caused by: javax.net.ssl.SSLHandshakeException: Received fatal alert: bad_certificate 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sometimes sub-errors </span>
+</span></span><span style="display:flex;"><span>Caused by: javax.net.ssl.SSLHandshakeException: null cert chain 
+</span></span><span style="display:flex;"><span>Caused by java.security.cert.CertificateException: failed to parse any certificates from <span style="color:#f92672">[</span>MY_DIRECTORY<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span>Caused by: io.netty.handler.ssl.NotSslRecordException: not an SSL/TLS record 
+</span></span><span style="display:flex;"><span>Caused by: javax.net.ssl.SSLHandshakeException: Received fatal alert: unknown_ca 
+</span></span><span style="display:flex;"><span>Caused by: javax.net.ssl.SSLHandshakeException: unable to get issuer certificate 
+</span></span><span style="display:flex;"><span>Caused by: sun.security.validator.ValidatorException: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors 
+</span></span><span style="display:flex;"><span>Caused by javax.net.ssl.SSLHandshakeException: no cipher suites in common 
+</span></span><span style="display:flex;"><span>Caused by: javax.net.ssl.SSLHandshakeException: Client requested protocol SSLv3 not enabled or not supported 
+</span></span><span style="display:flex;"><span>Caused by: java.security.cert.CertificateException: No name matching XXXXX found 
+</span></span><span style="display:flex;"><span>Caused by: javax.net.ssl.SSLException: Received fatal alert: certificate_unknown
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># TCP-only</span>
+</span></span><span style="display:flex;"><span>Caused by: java.io.StreamCorruptedException: invalid internal transport message format
+</span></span></code></pre></div><p>Historically this occurred for typo reasons (invalid/empty certificate file, missing permissions, inconsistent settings across nodes). Usually you&rsquo;d <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-basic-setup.html">go through the steps again</a> instead of trying to fix the certificates.</p>
+<h2 id="not-match-subject-provided">not match subject provided</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#e6db74">&#34;Host name &#39;XXXXX&#39; does not match the certificate subject provided by the peer (YYYYY)&#34;</span>
+</span></span></code></pre></div><p>This is a certificate vs usage line-up issue. For example, certificate does not cover the attempted IP/FQDN as listed under <code>elasticsearch.hosts</code>.</p>
+<h2 id="version-number">version number</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>35<span style="color:#f92672">)</span> error:1408F10B:SSL routines:ssl3_get_record:wrong version number
+</span></span></code></pre></div><p>I&rsquo;ve only seen this a handful of times, but AFAICT it occurs when you hodge-podge have certificate settings without having SSL/TLS settings enabled. You&rsquo;d confirm by running with <code>http</code> instead of <code>https</code> and seeing Elasticsearch responsive while the <code>curl</code> error goes away.</p>
+<h2 id="verify-location">verify location</h2>
+<p>HTTPS traffic might see &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200 --cacert ./myCert.crt
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>77<span style="color:#f92672">)</span> error setting certificate verify locations:
+</span></span><span style="display:flex;"><span>  CAfile: /myCert.crt
+</span></span><span style="display:flex;"><span>  CApath: /etc/ssl/certs
+</span></span></code></pre></div><p>&hellip; while Elasticsearch logs might see TLS traffic like &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ElasticsearchException<span style="color:#f92672">[</span>failed to initialize SSL TrustManager - not permitted to read truststore file <span style="color:#f92672">[</span>XXXXX<span style="color:#f92672">]]</span>
+</span></span></code></pre></div><p>I&rsquo;ve only seen these once each but it indicates the requesting user does not have permissions to the certificate files, so try the <code>curl</code> / Elasticsearch start-up request with <code>sudo</code>.</p>
+<p>Same ballpark, but an alternative issue can occur if your certificates require password and the password is incorrect will error <code>File does not contain valid private key</code>. This could be either directory/file look-up issues or password issues.</p>
+<h1 id="elasticsearch">Elasticsearch</h1>
+<p>Now we&rsquo;ll dive into the most common Elasticsearch errors which return from the server after the CURL request was successfully received by the server. These errors spread across <code>curl</code> / client-side issues still as well as now also adding in Elasticsearch-side issues. Elasticsearch errors show via both the response status code and body.</p>
+<h2 id="http-401">HTTP 401</h2>
+<p><code>UNAUTHENTICATED</code> : The additional information in the response body will usually indicate either that your <code>username:password</code> pair (or API Key, etc.) is invalid, or that your <code>.security</code> index is unavailable and you need to setup a temporary <code>role:superuser</code> <a href="https://medium.com/@stefnestor/elasticsearch-file-based-realm-2508ff0e5de2">File-realm user to bypass</a>.</p>
+<h3 id="missing-credentials">missing credentials</h3>
+<p>Example: when SSL-enabled, running <code>curl</code> without authenticating credentials will error like &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k https://localhost:9200
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;header&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;WWW-Authenticate&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Basic realm=\&#34;security\&#34; charset=\&#34;UTF-8\&#34;&#34;</span>,<span style="color:#e6db74">&#34;Bearer realm=\&#34;security\&#34;&#34;</span>,<span style="color:#e6db74">&#34;ApiKey&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;missing authentication credentials for REST request [/]&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;root_cause&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;header&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;WWW-Authenticate&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Basic realm=\&#34;security\&#34; charset=\&#34;UTF-8\&#34;&#34;</span>,<span style="color:#e6db74">&#34;Bearer realm=\&#34;security\&#34;&#34;</span>,<span style="color:#e6db74">&#34;ApiKey&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">}</span>, <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;missing authentication credentials for REST request [/]&#34;</span>, <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;security_exception&#34;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;security_exception&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#ae81ff">401</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>reason: missing authentication credentials for REST request</code>.</p>
+<h3 id="invalid-credentials">invalid credentials</h3>
+<p>Example: when attempting a valid <code>username</code> but invalid <code>password</code> in our <code>username:password</code> pair, it will error like &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:invalidPassword&#34;</span> https://localhost:8130
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;header&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;WWW-Authenticate&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Basic realm=\&#34;security\&#34; charset=\&#34;UTF-8\&#34;&#34;</span>,<span style="color:#e6db74">&#34;Bearer realm=\&#34;security\&#34;&#34;</span>,<span style="color:#e6db74">&#34;ApiKey&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;unable to authenticate user [elastic] for REST request [/]&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;root_cause&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;header&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;WWW-Authenticate&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Basic realm=\&#34;security\&#34; charset=\&#34;UTF-8\&#34;&#34;</span>,<span style="color:#e6db74">&#34;Bearer realm=\&#34;security\&#34;&#34;</span>,<span style="color:#e6db74">&#34;ApiKey&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">}</span>, <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;unable to authenticate user [elastic] for REST request [/]&#34;</span>, <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;security_exception&#34;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;security_exception&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#ae81ff">401</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>reason: unable to authenticate user [elastic] for REST request</code>.</p>
+<p>This error can also occur when</p>
+<ul>
+<li>the <code>username</code>, <code>api_key</code>, etc. fails to look-up and not just the <code>password</code></li>
+<li>the credential backs up to the <code>.security-7</code> index (see <a href="https://medium.com/@stefnestor/diving-into-elasticsearch-security-f0a10ebd1d43">which objects it hosts</a>) which is <code>status:red</code></li>
+<li>(infrequent) <a href="https://github.com/elastic/logstash/issues/11193">issues induced client-side from special characters</a></li>
+</ul>
+<h2 id="http-403">HTTP 403</h2>
+<p><code>UNAUTHORIZED</code> : Your <code>username</code> is recognized and <code>password</code> accepted (or alternative <code>api_key</code>, etc.) but has insufficient permissions to run the request. The response body will explicitly state which permissions were lacking. Example: user <code>test</code> created with no permissions at all &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;test:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;action [cluster:monitor/main] is unauthorized for user [test] with effective roles [], this action is granted by the cluster privileges [monitor,manage,all]&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;root_cause&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;action [cluster:monitor/main] is unauthorized for user [test] with effective roles [], this action is granted by the cluster privileges [monitor,manage,all]&#34;</span>, <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;security_exception&#34;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;security_exception&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#ae81ff">403</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>reason: action [XXXXX] is unauthorized for user [test] with effective roles [YYYYY], this action is granted by the cluster privileges [ZZZZZ]</code>.</p>
+<h2 id="http-429">HTTP 429</h2>
+<p><code>TOO_MANY_REQUESTS</code> : Your username authenticated and authorized, but the cluster is under sufficiently high strain that it&rsquo;s not responding to the attempted API call.</p>
+<blockquote>
+<p><em>NOTE</em>: These responses are usually intermittent and directly relate to the cluster&rsquo;s resource strain, particularly when <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/hotspotting.html">hot spotting</a>. I&rsquo;ll outline example response bodies here but for their resolutions, see <a href="https://medium.com/@stefnestor/elasticsearch-ingest-rejections-ce97e2e9da00">ingest rejections</a> (which also serves high-level for all other conversations).</p>
+</blockquote>
+<h3 id="circuit-breakers">circuit breakers</h3>
+<p>This occurs when Elasticsearch heap is hitting its <code>parent</code> or child-breaker limits to protect the service from JVM OOM&rsquo;ing. See also Elasticsearch&rsquo;s <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/circuit-breaker-errors.html">troubleshooting doc</a>. Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;bytes_limit&#34;</span>: 6844055552,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;bytes_wanted&#34;</span>: 6844240272,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;[request] Data too large, data for [&lt;parent&gt;] would be larger than limit of [6844055552/6.3gb]&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;circuit_breaking_exception&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>reason: Data too large</code> which in example points to <code>parent</code> as the circuit breaker in question. Alternative: (<code>CircuitBreakingException</code>).</p>
+<h3 id="rejected----coordinating">rejected  - coordinating</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200/_bulk ... 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;root_cause&#34;</span>: <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;rejected execution of coordinating operation [coordinating_and_primary_bytes=0, replica_bytes=0, all_bytes=0, coordinating_operation_bytes=68295401, max_coordinating_and_primary_bytes=53687091]&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;es_rejected_execution_exception&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>reason: rejected execution of coordinating operation</code>. This is the same ballpark as alternatives (<code>rejected execution of primary operation</code> , <code>rejected execution of replica operation</code>).</p>
+<h3 id="rejected----queues">rejected  - queues</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200/_bulk ... 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#e6db74">&#34;shard&#34;</span> : 0,
+</span></span><span style="display:flex;"><span>   <span style="color:#e6db74">&#34;node&#34;</span> : <span style="color:#e6db74">&#34;my-node&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#e6db74">&#34;reason&#34;</span> : <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;reason&#34;</span> : <span style="color:#e6db74">&#34;rejected execution of org.elasticsearch.common.util.concurrent.TimedRunnable@26c03d4a on QueueResizingEsThreadPoolExecutor[name = esdX/search, queue capacity = 1000, min queue capacity = 1000, max queue capacity = 1000, frame size = 2000, targeted response rate = 1s, task execution EWMA = 968.1ms, adjustment amount = 50, org.elasticsearch.common.util.concurrent.QueueResizingEsThreadPoolExecutor@70be0765[Running, pool size = 13, active threads = 13, queued tasks = 1000, completed tasks = 616499351]]&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;type&#34;</span> : <span style="color:#e6db74">&#34;es_rejected_execution_exception&#34;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#e6db74">&#34;index&#34;</span> : <span style="color:#e6db74">&#34;my-index&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>reason: rejected execution of ... on QueueResizingEsThreadPoolExecutor</code>.</p>
+<h2 id="http-503">HTTP 503</h2>
+<p><code>SERVICE_UNAVAILABLE</code> : This indicates a cluster-level issue with Elasticsearch. Most frequently it&rsquo;ll be <a href="https://medium.com/@stefnestor/es-cluster-fault-detection-6dfc10cd0d8d">cluster formation/fault</a> issues surfacing in various stages. You&rsquo;ll usually port over to Elasticsearch logs to investigate as this situation is a prerequisite to the API&rsquo;s general responsiveness.</p>
+<h3 id="license">license</h3>
+<p>This is a infrequent error but when it surfaces it&rsquo;s usually via Kibana as it&rsquo;s failing one of it&rsquo;s first connecting to Elasticsearch APIs. This can happen either during license setup or most commonly happens as master node overwhelms (right before next error example). Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Service Unavailable&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;License is not available.&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;statusCode&#34;</span>: <span style="color:#ae81ff">503</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>License is not available</code>.</p>
+<h3 id="master-not-discovered">master not discovered</h3>
+<p>When nodes are forming/defaulting from cluster, while a master node is not elected, Elasticsearch will error &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reason&#34;</span>: null,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;root_cause&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;reason&#34;</span>: null,<span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;master_not_discovered_exception&#34;</span><span style="color:#f92672">}]</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;master_not_discovered_exception&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#ae81ff">503</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>master_not_discovered_exception</code>. Alternative: (<code>MasterNotDiscoveredException</code>).</p>
+<h3 id="cluster-state-recovery">cluster state recovery</h3>
+<p>Cluster fault detection issues can surface as delayed recovery &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;caused_by&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;Cluster state has not been recovered yet, cannot write to the [null] index&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;status_exception&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;failed to promote the auto-configured elastic password hash&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;root_cause&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;Cluster state has not been recovered yet, cannot write to the [null] index&#34;</span>, <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;status_exception&#34;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;authentication_processing_error&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#ae81ff">503</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;ClusterBlockException[blocked by: [SERVICE_UNAVAILABLE/1/state not recovered / initialized];]&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#ae81ff">503</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting ( <code>reason: Cluster state has not been recovered yet</code>, <code>state not recovered / initialized</code> ).</p>
+<h3 id="unavailable-shards">unavailable shards</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200/my-index/_search ... 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Service Unavailable&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;[all shards failed: search_phase_execution_exception\n\tRoot causes:\n\t\tno_shard_available_action_exception: null]: all shards failed&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;statusCode&#34;</span>: <span style="color:#ae81ff">503</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ curl -X POST -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200/my-index/_doc/1 ... 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;index&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;_id&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;_index&#34;</span>: <span style="color:#e6db74">&#34;my-index&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;_type&#34;</span>: <span style="color:#e6db74">&#34;_doc&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;[my-index][0] primary shard is not active Timeout: [1m], request: [BulkShardRequest [[my-index][0]] containing [1] requests]&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;unavailable_shards_exception&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#ae81ff">503</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>unavailable_shards_exception</code>. <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html">Cluster Health</a> is <code>status:red</code> on target indices &amp; you need to <a href="https://medium.com/@stefnestor/elasticsearch-data-health-5e760d303b49">resolve that first</a>.</p>
+<h3 id="timeout-exception">timeout exception</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -X PUT -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200/_snapshot/my_repo ... 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;failed to process cluster event (put_repository [my_repo]) within 30s&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;root_cause&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;reason&#34;</span>: <span style="color:#e6db74">&#34;failed to process cluster event (put_repository [my_repo]) within 30s&#34;</span>, <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;process_cluster_event_timeout_exception&#34;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;process_cluster_event_timeout_exception&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#ae81ff">503</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; highlighting <code>process_cluster_event_timeout_exception</code>.</p>
+<h3 id="queue-full">queue full</h3>
+<p>Noting Elasticsearch used to HTTP status code error 503 for but in the future should error 429 for &hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200/_bulk ... 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;accepted&#34;</span>: 0,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;errors&#34;</span>: <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;queue is full&#34;</span><span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>&hellip; see earlier <code>QueueResizingEsThreadPoolExecutor</code>.</p>
+<h2 id="http-504">HTTP 504</h2>
+<p><code>BAD_GATEWAY</code> : Your network is experiencing issues reaching the cluster. Frequently, Elasticsearch itself will not report the <code>504</code> but an intermediate proxy/firewall will. You&rsquo;ll usually want to check Elasticsearch <code>localhost</code> / logs for more troubleshooting data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -k -u <span style="color:#e6db74">&#34;elastic:changeme&#34;</span> https://localhost:9200
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Gateway Time-out&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Client request timeout&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;statusCode&#34;</span>: <span style="color:#ae81ff">504</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div>
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    <svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="topFunction()" title="Go to top">
+        
+        <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/>
+    </svg>
+    
+    <script>
+        let backToTopButton = document.getElementById("btt-button");
+
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            smoothScrollToTop();
+        }
+
+        function smoothScrollToTop() {
+            const scrollToTop = () => {
+                const c = document.documentElement.scrollTop || document.body.scrollTop;
+                if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                }
+            };
+            scrollToTop();
+        }
+    </script>
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#routing">routing</a>
+      <ul>
+        <li><a href="#connection-refused">connection refused</a></li>
+        <li><a href="#empty-reply-from-server">empty reply from server</a></li>
+        <li><a href="#connect-to-host">connect to host</a></li>
+      </ul>
+    </li>
+    <li><a href="#certificates">certificates</a>
+      <ul>
+        <li><a href="#local-issuer">local issuer</a></li>
+        <li><a href="#invalid-chain">invalid chain</a></li>
+        <li><a href="#failed-verify">failed verify</a></li>
+        <li><a href="#self-signed">self signed</a></li>
+        <li><a href="#trust-error">trust error</a></li>
+        <li><a href="#unknown-authority">unknown authority</a></li>
+        <li><a href="#alternative-subject-name">alternative subject name</a></li>
+        <li><a href="#expired-or-inactive">expired or inactive</a></li>
+        <li><a href="#bad">bad</a></li>
+        <li><a href="#not-match-subject-provided">not match subject provided</a></li>
+        <li><a href="#version-number">version number</a></li>
+        <li><a href="#verify-location">verify location</a></li>
+      </ul>
+    </li>
+    <li><a href="#elasticsearch">Elasticsearch</a>
+      <ul>
+        <li><a href="#http-401">HTTP 401</a>
+          <ul>
+            <li><a href="#missing-credentials">missing credentials</a></li>
+            <li><a href="#invalid-credentials">invalid credentials</a></li>
+          </ul>
+        </li>
+        <li><a href="#http-403">HTTP 403</a></li>
+        <li><a href="#http-429">HTTP 429</a>
+          <ul>
+            <li><a href="#circuit-breakers">circuit breakers</a></li>
+            <li><a href="#rejected----coordinating">rejected  - coordinating</a></li>
+            <li><a href="#rejected----queues">rejected  - queues</a></li>
+          </ul>
+        </li>
+        <li><a href="#http-503">HTTP 503</a>
+          <ul>
+            <li><a href="#license">license</a></li>
+            <li><a href="#master-not-discovered">master not discovered</a></li>
+            <li><a href="#cluster-state-recovery">cluster state recovery</a></li>
+            <li><a href="#unavailable-shards">unavailable shards</a></li>
+            <li><a href="#timeout-exception">timeout exception</a></li>
+            <li><a href="#queue-full">queue full</a></li>
+          </ul>
+        </li>
+        <li><a href="#http-504">HTTP 504</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+    <span>&copy; 2024 Stef Nestor</span>
+    
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/526avijitgupta/gokarna">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

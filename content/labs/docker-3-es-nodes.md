@@ -3,7 +3,7 @@ title = 'Three Node Elasticsearch Docker'
 date = 2024-05-14T12:00:00-07:00
 draft = false
 type = 'post'
-showTableOfContents = true
+showTableOfContents = false
 tags = [ 'elastic', 'docker', 'bash', 'elasticsearch', 'docker-compose' ]
 +++
 

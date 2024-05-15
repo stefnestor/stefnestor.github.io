@@ -18,5 +18,5 @@
 	```
 - local compile (before `git push` for automated Github Actions to publish)
 	```bash
-	$ hugo
+	$ hugo -F
 	```

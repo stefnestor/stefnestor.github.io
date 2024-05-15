@@ -9,6 +9,13 @@
     <lastBuildDate>Tue, 14 May 2024 12:00:00 -0700</lastBuildDate>
     <atom:link href="https://stefnestor.github.io/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Common Elasticsearch CURL Errors</title>
+      <link>https://stefnestor.github.io/labs/elasticsearch-curl-errors/</link>
+      <pubDate>Tue, 14 May 2024 12:00:00 -0700</pubDate>
+      <guid>https://stefnestor.github.io/labs/elasticsearch-curl-errors/</guid>
+      <description>GOAL: The following are common curl errors which surface in context to Elasticsearch but do not necessarily indicate an issue with its service vs how the client-side request was made. Errors are organized by networking &amp;gt; certificates &amp;gt; Elasticsearch layers.&#xA;routing Examples: (Could not retrieve the Elasticsearch version due to a system or network error - unable to continue., Unable to connect to Elasticsearch at localhost:9200, No living connections).&#xA;connection refused $ curl https://myElasticsearchURL.</description>
+    </item>
+    <item>
       <title>Three Node Elasticsearch Docker</title>
       <link>https://stefnestor.github.io/labs/docker-3-es-nodes/</link>
       <pubDate>Tue, 14 May 2024 12:00:00 -0700</pubDate>
